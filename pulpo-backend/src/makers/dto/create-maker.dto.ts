@@ -1,1 +1,3 @@
-export class CreateMakerDto {}
+export class CreateMakerDto {
+    name: string;
+}

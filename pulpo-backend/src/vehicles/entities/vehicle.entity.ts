@@ -1,11 +1,11 @@
 import { Color } from "src/colors/entities/color.entity";
 import { Maker } from "src/makers/entities/maker.entity";
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Vehicle {
-    @PrimaryColumn()
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @ManyToOne(type => Maker, maker => maker.vehicle)
     make: Maker;
@@ -22,6 +22,6 @@ export class Vehicle {
     @Column({default: true})
     isActive: boolean;
 
-    @Column()
-    isAssigned: boolean // Consultar tipo de dato.
+    @Column({default: false})
+    isAssigned: boolean 
 }

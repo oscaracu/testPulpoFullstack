@@ -22,7 +22,7 @@ import { Color } from './colors/entities/color.entity';
     password: process.env.DB_PWD,
     database: 'pulpo',
     entities: [Vehicle, Maker, Color],
-    synchronize: false,
+    synchronize: true,
   }), 
   ],
   controllers: [AppController],

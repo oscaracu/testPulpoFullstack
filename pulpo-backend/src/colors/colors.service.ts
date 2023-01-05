@@ -12,23 +12,27 @@ export class ColorsService {
     private colorsRepository: Repository<Color>,
   ){}
   
-  create(createColorDto: CreateColorDto) {
-    return 'This action adds a new color';
+  create(createColorDto: CreateColorDto): Promise<Color> {
+    const color = new Color();
+    color.name = createColorDto.name;
+    return this.colorsRepository.save(color);
   }
 
-  findAll() {
-    return `This action returns all colors`;
+  async findAll(): Promise<Color[]> {
+    return await this.colorsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} color`;
+  findOne(id: number): Promise<Color> {
+    return this.colorsRepository.findOneBy({id:id});
   }
 
-  update(id: number, updateColorDto: UpdateColorDto) {
-    return `This action updates a #${id} color`;
+  async update(id: number, updateColorDto: UpdateColorDto): Promise<Color> {
+    const colorToUpdate = await this.colorsRepository.findOneBy({id:id});
+    colorToUpdate.name = updateColorDto.name;
+    return this.colorsRepository.save(colorToUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} color`;
+  async remove(id: number): Promise<void> {
+    await this.colorsRepository.delete(id);
   }
 }

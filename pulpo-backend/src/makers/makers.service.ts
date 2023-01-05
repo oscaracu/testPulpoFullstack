@@ -12,23 +12,27 @@ export class MakersService {
     private makersRepository: Repository<Maker>
   ){}
 
-  create(createMakerDto: CreateMakerDto) {
-    return 'This action adds a new maker';
+  create(createMakerDto: CreateMakerDto): Promise<Maker> {
+    const maker = new Maker();
+    maker.name = createMakerDto.name;
+    return this.makersRepository.save(maker) ;
   }
 
-  findAll() {
-    return `This action returns all makers`;
+  async findAll(): Promise<Maker[]> {
+    return await this.makersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} maker`;
+  findOne(id: number): Promise<Maker> {
+    return this.makersRepository.findOneBy({id:id});
   }
 
-  update(id: number, updateMakerDto: UpdateMakerDto) {
-    return `This action updates a #${id} maker`;
+  async update(id: number, updateMakerDto: UpdateMakerDto): Promise<Maker> {
+    const makerToUpdate = await this.makersRepository.findOneBy({id:id});
+    makerToUpdate.name = updateMakerDto.name;
+    return this.makersRepository.save(makerToUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} maker`;
+  async remove(id: number): Promise<void> {
+    await this.makersRepository.delete(id);
   }
 }
