@@ -1,6 +1,7 @@
 import { Color } from "src/colors/entities/color.entity";
 import { Maker } from "src/makers/entities/maker.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Novelty } from "src/novelties/entities/novelty.entity";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Vehicle {
@@ -23,5 +24,14 @@ export class Vehicle {
     isActive: boolean;
 
     @Column({default: false})
-    isAssigned: boolean 
+    isAssigned: boolean;
+
+    @UpdateDateColumn({type: "date"})
+    updateDate: string;
+
+    @ManyToMany(()=> Novelty, (novelty)=> novelty.vehicles, {cascade: true})
+    @JoinTable()
+    novelties: Novelty[];
+
+
 }

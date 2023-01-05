@@ -3,6 +3,7 @@ import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { Vehicle } from './entities/vehicle.entity';
+import { CreateNoveltyDto } from 'src/novelties/dto/create-novelty.dto';
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -18,9 +19,9 @@ export class VehiclesController {
     return this.vehiclesService.findAll();
   }
 
-  @Get('novelties')
-  findNovelties() {
-    return this.vehiclesService.findNovelties();
+  @Post(':id/novelties')
+  createNovelties(@Param('id') id:string, @Body() createNoveltyDto: CreateNoveltyDto): Promise<Vehicle> {
+    return this.vehiclesService.createNovelties(+id, createNoveltyDto);
   }
 
 

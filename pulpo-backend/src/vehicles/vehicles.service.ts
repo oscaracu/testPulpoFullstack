@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Color } from 'src/colors/entities/color.entity';
 import { Maker } from 'src/makers/entities/maker.entity';
+import { CreateNoveltyDto } from 'src/novelties/dto/create-novelty.dto';
+import { Novelty } from 'src/novelties/entities/novelty.entity';
 import { Repository } from 'typeorm';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
@@ -15,7 +17,9 @@ export class VehiclesService {
     @InjectRepository(Maker)
     private makersRepository: Repository<Maker>,
     @InjectRepository(Color)
-    private colorsRepository: Repository<Color>
+    private colorsRepository: Repository<Color>,
+    @InjectRepository(Novelty)
+    private noveltiesRepository: Repository<Novelty>
   ) {}
   
   async create(createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
@@ -42,9 +46,17 @@ export class VehiclesService {
     });
   }
   
-  // Esperando respuesta acerca de la funcionalidad
-  findNovelties() {
-    return 'This action returns all novelties';
+  async createNovelties(id:number, createNoveltyDto: CreateNoveltyDto): Promise<Vehicle> {
+    const novelty = new Novelty();
+    novelty.description = createNoveltyDto.description;
+    const vehicle = await this.vehiclesRepository.findOne({
+      where: {id},
+      relations: {
+        novelties: true
+      }
+    });
+    vehicle.novelties.push(novelty);
+    return await this.vehiclesRepository.save(vehicle);
   }
 
   findOne(id: number): Promise<Vehicle> {
@@ -52,7 +64,8 @@ export class VehiclesService {
       where: {id},
       relations: {
         color: true,
-        make: true
+        make: true,
+        novelties: true
       }});
   }
 

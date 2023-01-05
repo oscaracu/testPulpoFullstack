@@ -9,6 +9,8 @@ import { ColorsModule } from './colors/colors.module';
 import { Vehicle } from './vehicles/entities/vehicle.entity';
 import { Maker } from './makers/entities/maker.entity';
 import { Color } from './colors/entities/color.entity';
+import { NoveltiesModule } from './novelties/novelties.module';
+import { Novelty } from './novelties/entities/novelty.entity';
 
 @Module({
   imports: [
@@ -21,9 +23,10 @@ import { Color } from './colors/entities/color.entity';
     username: process.env.DB_USER,
     password: process.env.DB_PWD,
     database: 'pulpo',
-    entities: [Vehicle, Maker, Color],
+    entities: [Vehicle, Maker, Color, Novelty],
     synchronize: true,
-  }), 
+  }),
+    NoveltiesModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

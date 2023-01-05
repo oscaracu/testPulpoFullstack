@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Vehicle } from './entities/vehicle.entity';
 import { Maker } from 'src/makers/entities/maker.entity';
 import { Color } from 'src/colors/entities/color.entity';
+import { Novelty } from 'src/novelties/entities/novelty.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Vehicle]), TypeOrmModule.forFeature([Maker]), TypeOrmModule.forFeature([Color])],
+  imports: [TypeOrmModule.forFeature([Vehicle, Novelty, Maker, Color])],
   controllers: [VehiclesController],
   providers: [VehiclesService]
 })
