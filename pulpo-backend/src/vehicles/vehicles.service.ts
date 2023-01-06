@@ -23,12 +23,10 @@ export class VehiclesService {
   ) {}
   
   async create(createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
-    const make = await this.makersRepository.findOneBy({id:createVehicleDto.make});
-    const color = await this.colorsRepository.findOneBy({id:createVehicleDto.color});
     const vehicle = this.vehiclesRepository.create({
-      make,
+      make: createVehicleDto.make,
       model: createVehicleDto.model,
-      color,
+      color: createVehicleDto.color,
       admissionDate: createVehicleDto.admissionDate,
       isActive: createVehicleDto.isActive,
       isAssigned: createVehicleDto.isAssigned
@@ -70,11 +68,10 @@ export class VehiclesService {
   }
 
   async update(id: number, updateVehicleDto: UpdateVehicleDto): Promise<Vehicle> {
-    const make = await this.makersRepository.findOneBy({id:updateVehicleDto.make});
-    const color = await this.colorsRepository.findOneBy({id:updateVehicleDto.color});
+    
     const vehicleToUpdate = await this.vehiclesRepository.findOneBy({id:id});
-    vehicleToUpdate.make = make;
-    vehicleToUpdate.color = color;
+    vehicleToUpdate.make = updateVehicleDto.make;
+    vehicleToUpdate.color = updateVehicleDto.color;
     vehicleToUpdate.model = updateVehicleDto.model;
     vehicleToUpdate.admissionDate = updateVehicleDto.admissionDate;
     vehicleToUpdate.isActive = updateVehicleDto.isActive;
