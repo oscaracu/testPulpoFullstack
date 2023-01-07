@@ -4,7 +4,6 @@ import { Novelty } from 'src/novelties/entities/novelty.entity';
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -16,13 +15,13 @@ export class Vehicle {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Maker, (maker) => maker.vehicle)
+  @ManyToOne(() => Maker, (maker) => maker.vehicle)
   make: Maker;
 
   @Column()
   model: number;
 
-  @ManyToOne((type) => Color, (color) => color.vehicle)
+  @ManyToOne(() => Color, (color) => color.vehicle)
   color: Color;
 
   @Column({ type: 'date' })

@@ -35,8 +35,13 @@ export class VehiclesService {
     return await this.vehiclesRepository.save(vehicle);
   }
 
-  async findAll(): Promise<Vehicle[]> {
+  async findAll(queries): Promise<Vehicle[]> {
     return await this.vehiclesRepository.find({
+      where: {
+        model: validateQuery(queries.model),
+        isActive: validateQuery(queries.isActive),
+        isAssigned: validateQuery(queries.isAssigned),
+      },
       relations: {
         make: true,
         color: true,
@@ -91,4 +96,21 @@ export class VehiclesService {
   async remove(id: number): Promise<void> {
     await this.vehiclesRepository.delete(id);
   }
+}
+
+function validateQuery(query) {
+  switch (query) {
+    case undefined:
+    case '':
+      return null;
+
+    case 'true':
+    case 'false':
+      return query;
+  }
+  if (isNaN(query)) {
+    return null;
+  }
+
+  return query;
 }
