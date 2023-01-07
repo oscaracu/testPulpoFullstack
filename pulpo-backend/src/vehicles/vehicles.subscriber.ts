@@ -21,35 +21,67 @@ export class VehicleSubscriber implements EntitySubscriberInterface<Vehicle> {
     return Vehicle;
   }
 
-  afterUpdate(event: UpdateEvent<Vehicle>): void | Promise<any> {
+  async afterUpdate(event: UpdateEvent<Vehicle>): Promise<any> {
     const vehicle = event.entity;
+    const id: number = vehicle.id;
     let description: string = '';
+    let noveltiesCategoryId: number;
     for (let field in vehicle) {
       switch (field) {
         case 'color':
           if (vehicle[field] !== undefined) {
-            description += `Vehicle color has been updated to color ${vehicle[field]}. `;
+            noveltiesCategoryId = 1;
+            description = 'Vehicle color has been updated';
+            const novelty: CreateNoveltyDto = {
+              noveltiesCategoryId,
+              description,
+            };
+            await this.vehiclesService.createNovelties(id, novelty);
           }
           break;
 
         case 'make':
           if (vehicle[field] !== undefined) {
-            description += `Vehicle make has been updated to ${vehicle[field]}. `;
+            noveltiesCategoryId = 1;
+            description = 'Vehicle make has been updated';
+            const novelty: CreateNoveltyDto = {
+              noveltiesCategoryId,
+              description,
+            };
+            await this.vehiclesService.createNovelties(id, novelty);
           }
           break;
 
         case 'model':
           if (vehicle[field] !== undefined) {
-            description += `Vehicle model has been updated to ${vehicle[field]}. `;
+            noveltiesCategoryId = 1;
+            description = `Vehicle model has been updated to ${vehicle[field]}.`;
+            const novelty: CreateNoveltyDto = {
+              noveltiesCategoryId,
+              description,
+            };
+            await this.vehiclesService.createNovelties(id, novelty);
           }
           break;
 
         case 'isActive':
           if (vehicle[field] !== undefined) {
             if (vehicle[field]) {
-              description += 'The vehicle has been activated. ';
+              noveltiesCategoryId = 2;
+              description = 'The vehicle has been activated.';
+              const novelty: CreateNoveltyDto = {
+                noveltiesCategoryId,
+                description,
+              };
+              await this.vehiclesService.createNovelties(id, novelty);
             } else {
-              description += 'The vehicle has been deactivated. ';
+              noveltiesCategoryId = 2;
+              description = 'The vehicle has been deactivated.';
+              const novelty: CreateNoveltyDto = {
+                noveltiesCategoryId,
+                description,
+              };
+              await this.vehiclesService.createNovelties(id, novelty);
             }
           }
           break;
@@ -57,9 +89,21 @@ export class VehicleSubscriber implements EntitySubscriberInterface<Vehicle> {
         case 'isAssigned':
           if (vehicle[field] !== undefined) {
             if (vehicle[field]) {
-              description += 'The vehicle has been assigned. ';
+              noveltiesCategoryId = 2;
+              description = 'The vehicle has been assigned.';
+              const novelty: CreateNoveltyDto = {
+                noveltiesCategoryId,
+                description,
+              };
+              await this.vehiclesService.createNovelties(id, novelty);
             } else {
-              description += 'The vehicle has been unassigned. ';
+              noveltiesCategoryId = 2;
+              description = 'The vehicle has been unassigned.';
+              const novelty: CreateNoveltyDto = {
+                noveltiesCategoryId,
+                description,
+              };
+              await this.vehiclesService.createNovelties(id, novelty);
             }
           }
           break;
@@ -68,7 +112,5 @@ export class VehicleSubscriber implements EntitySubscriberInterface<Vehicle> {
           break;
       }
     }
-    const novelty: CreateNoveltyDto = { description };
-    this.vehiclesService.createNovelties(event.entity.id, novelty);
   }
 }

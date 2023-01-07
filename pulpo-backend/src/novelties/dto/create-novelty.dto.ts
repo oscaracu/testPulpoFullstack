@@ -1,3 +1,4 @@
 export class CreateNoveltyDto {
-    description: string;
+  noveltiesCategoryId: number;
+  description: string;
 }
