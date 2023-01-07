@@ -1,17 +1,36 @@
-import { Vehicle } from "src/vehicles/entities/vehicle.entity";
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { NoveltiesCategory } from 'src/novelties-categories/entities/novelties-category.entity';
+import { Vehicle } from 'src/vehicles/entities/vehicle.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Novelty {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  public noveltyId!: number;
 
-    @Column()
-    description: string;
+  @Column()
+  public vehicleId!: number;
 
-    @CreateDateColumn()
-    createdDate: string;
+  @Column()
+  public noveltiesCategoryId!: number;
 
-    @ManyToMany(()=> Vehicle, (vehicle)=> vehicle.novelties)
-    vehicles: Vehicle[]
+  @Column()
+  public description!: string;
+
+  @CreateDateColumn()
+  public createdDate!: string;
+
+  @ManyToOne(() => Vehicle, (vehicle) => vehicle.novelties)
+  public vehicle!: Vehicle;
+
+  @ManyToOne(
+    () => NoveltiesCategory,
+    (noveltiesCategory) => noveltiesCategory.novelties,
+  )
+  public noveltiesCategory!: NoveltiesCategory;
 }

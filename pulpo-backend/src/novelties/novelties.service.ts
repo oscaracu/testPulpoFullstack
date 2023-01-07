@@ -7,11 +7,10 @@ import { Novelty } from './entities/novelty.entity';
 
 @Injectable()
 export class NoveltiesService {
-
   constructor(
     @InjectRepository(Novelty)
-    private noveltiesRepository: Repository<Novelty>
-  ){}
+    private noveltiesRepository: Repository<Novelty>,
+  ) {}
 
   async create(createNoveltyDto: CreateNoveltyDto): Promise<Novelty> {
     const novelty = new Novelty();
@@ -24,11 +23,16 @@ export class NoveltiesService {
   }
 
   async findOne(id: number): Promise<Novelty> {
-    return await this.noveltiesRepository.findOneBy({id}) ;
+    return await this.noveltiesRepository.findOneBy({ noveltyId: id });
   }
 
-  async update(id: number, updateNoveltyDto: UpdateNoveltyDto): Promise<Novelty> {
-    const noveltyToUpdate = await this.noveltiesRepository.findOneBy({id});
+  async update(
+    id: number,
+    updateNoveltyDto: UpdateNoveltyDto,
+  ): Promise<Novelty> {
+    const noveltyToUpdate = await this.noveltiesRepository.findOneBy({
+      noveltyId: id,
+    });
     noveltyToUpdate.description = updateNoveltyDto.description;
     return await this.noveltiesRepository.save(noveltyToUpdate);
   }
