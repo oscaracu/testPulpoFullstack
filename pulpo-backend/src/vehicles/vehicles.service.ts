@@ -36,17 +36,29 @@ export class VehiclesService {
   }
 
   async findAll(queries): Promise<Vehicle[]> {
-    return await this.vehiclesRepository.find({
-      where: {
-        model: validateQuery(queries.model),
-        isActive: validateQuery(queries.isActive),
-        isAssigned: validateQuery(queries.isAssigned),
-      },
-      relations: {
-        make: true,
-        color: true,
-      },
-    });
+    try {
+      return await this.vehiclesRepository.find({
+        relations: {
+          make: true,
+          color: true,
+          novelties: true,
+        },
+        where: {
+          make: { id: parseQuery(queries.make) },
+          model: parseQuery(queries.model),
+          color: { id: parseQuery(queries.color) },
+          isActive: parseQuery(queries.isActive),
+          isAssigned: parseQuery(queries.isAssigned),
+          novelties: {
+            noveltiesCategoryId: parseQuery(queries.noveltiesCategory),
+          },
+        },
+        order: parseSort(queries.order, queries.sort),
+      });
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   }
 
   async createNovelties(
@@ -67,8 +79,8 @@ export class VehiclesService {
     return await this.vehiclesRepository.save(vehicle);
   }
 
-  findOne(id: number): Promise<Vehicle> {
-    return this.vehiclesRepository.findOne({
+  async findOne(id: number): Promise<Vehicle> {
+    return await this.vehiclesRepository.findOne({
       where: { id },
       relations: {
         color: true,
@@ -98,7 +110,7 @@ export class VehiclesService {
   }
 }
 
-function validateQuery(query) {
+function parseQuery(query) {
   switch (query) {
     case undefined:
     case '':
@@ -107,10 +119,30 @@ function validateQuery(query) {
     case 'true':
     case 'false':
       return query;
+    default:
+      break;
   }
   if (isNaN(query)) {
     return null;
   }
 
   return query;
+}
+
+function parseSort(
+  order: string,
+  sort: string,
+): import('typeorm').FindOptionsOrder<Vehicle> {
+  switch (order) {
+    case 'make':
+    case 'color':
+      return { [order]: { name: sort } };
+    case 'model':
+    case 'admissionDate':
+    case 'updateDate':
+      return { [order]: sort };
+
+    default:
+      return null;
+  }
 }
