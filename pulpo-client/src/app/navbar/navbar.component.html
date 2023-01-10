@@ -1,0 +1,105 @@
+<nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <!-- Mobile menu button-->
+                <button (click)="toggle('navLink')" type="button"
+                    class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <!--
+              Icon when menu is closed.
+  
+              Heroicon name: outline/bars-3
+  
+              Menu open: "hidden", Menu closed: "block"
+            -->
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <!--
+              Icon when menu is open.
+  
+              Heroicon name: outline/x-mark
+  
+              Menu open: "block", Menu closed: "hidden"
+            -->
+                    <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div class="flex flex-shrink-0 items-center">
+                    <img class="block h-8 w-auto lg:hidden" src="../../assets/pulpo-logo-blue.svg" alt="Your Company" />
+                    <img class="hidden h-8 w-auto lg:block" src="../../assets/pulpo-logo-blue.svg" alt="Your Company" />
+                </div>
+                <div class="hidden sm:ml-6 sm:block">
+                    <div class="flex space-x-4">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <p class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
+                            Dashboard
+                        </p>
+
+                        <a href="#"
+                            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+
+                <!-- Profile dropdown -->
+                <div class="relative ml-3">
+                    <div>
+                        <button type="button" class="flex rounded-full bg-gray-800 text-sm" id="user-menu-button"
+                            aria-expanded="false" aria-haspopup="true" (click)="toggle('userOptions')">
+                            <span class="sr-only">Open user menu</span>
+
+                            <svg class="fill-gray-500 hover:fill-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                height="32" width="32" viewBox="0 0 48 48">
+                                <path
+                                    d="M11.15 35.1q3.15-2.15 6.225-3.325Q20.45 30.6 24 30.6t6.675 1.175Q33.8 32.95 36.9 35.1q2.2-2.7 3.1-5.4.9-2.7.9-5.7 0-7.2-4.85-12.05Q31.2 7.1 24 7.1q-7.2 0-12.05 4.85Q7.1 16.8 7.1 24q0 3 .925 5.7t3.125 5.4ZM24 25.6q-2.95 0-4.925-2-1.975-2-1.975-4.95 0-2.9 2-4.9 2-2 4.9-2 2.95 0 4.925 2 1.975 2 1.975 4.95 0 2.9-2 4.9-2 2-4.9 2Zm0 18.7q-4.15 0-7.85-1.6-3.7-1.6-6.475-4.375Q6.9 35.55 5.3 31.875 3.7 28.2 3.7 24t1.6-7.875q1.6-3.675 4.375-6.45Q12.45 6.9 16.125 5.3 19.8 3.7 24 3.7t7.875 1.6q3.675 1.6 6.45 4.375 2.775 2.775 4.375 6.45Q44.3 19.8 44.3 24q0 4.15-1.6 7.85-1.6 3.7-4.375 6.475-2.775 2.775-6.45 4.375Q28.2 44.3 24 44.3Zm0-3.4q2.7 0 5.275-.775T34.4 37.4q-2.55-1.8-5.125-2.725T24 33.75q-2.7 0-5.25.925T13.6 37.4q2.55 1.95 5.125 2.725Q21.3 40.9 24 40.9Zm0-18.45q1.65 0 2.725-1.05 1.075-1.05 1.075-2.75 0-1.65-1.075-2.7Q25.65 14.9 24 14.9q-1.65 0-2.725 1.05Q20.2 17 20.2 18.65q0 1.7 1.075 2.75T24 22.45Zm0-3.8Zm0 18.7Z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!--
+              Dropdown menu, show/hide based on menu state.
+  
+              Entering: "transition ease-out duration-100"
+                From: "transform opacity-0 scale-95"
+                To: "transform opacity-100 scale-100"
+              Leaving: "transition ease-in duration-75"
+                From: "transform opacity-100 scale-100"
+                To: "transform opacity-0 scale-95"
+            -->
+                    <div *ngIf="menus.userOptions"
+                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                        <!-- Active: "bg-gray-100", Not Active: "" -->
+
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="user-menu-item-2">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div *ngIf="menus.navLink" class="sm:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pt-2 pb-3">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <p class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">
+                Dashboard
+            </p>
+
+            <a href="#"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+        </div>
+    </div>
+</nav>
