@@ -14,14 +14,14 @@
                 class="w-full inline-flex items-center justify-center rounded-md border border-indigo-700 py-3 px-10 text-center text-base text-indigo-700 transition hover:border-indigo-700 hover:bg-indigo-700 hover:text-white lg:px-8 xl:px-10">Buscar</button>
         </div>
     </div>
-    <div class="flex justify-center gap-3 border">
+    <!-- Sección de botones de filtros -->
+    <div class="p-4 mb-4 flex flex-col items-center justify-center gap-3 border md:flex-row">
 
-        <!-- Sección de botones de filtros -->
 
-        <div class="relative mb-4 inline-block text-left">
+        <div class="relative inline-block text-left">
             <button (click)="toggle('order')"
                 class=" flex items-center rounded bg-indigo-700 py-3 px-5 text-base font-semibold text-white">
-                Ordernar por:
+                Ordenar por:
                 <span class="pl-2">
                     <svg width="12" height="7" viewBox="0 0 12 7" class="fill-current">
                         <path
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="relative mb-4 inline-block text-left">
+        <div class="relative inline-block text-left">
             <button (click)="toggle('sort')"
                 class=" flex items-center rounded bg-indigo-700 py-3 px-5 text-base font-semibold text-white">
                 Orden:
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="relative mb-4 inline-block text-left">
+        <div class="relative inline-block text-left">
             <button (click)="toggle('show')"
                 class=" flex items-center rounded bg-indigo-700 py-3 px-5 text-base font-semibold text-white">
                 Mostrar solo:
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="relative mb-4 inline-block text-left">
+        <div class="relative inline-block text-left">
             <button (click)="toggle('novelties')"
                 class=" flex items-center rounded bg-indigo-700 py-3 px-5 text-base font-semibold text-white">
                 Novedades en:
@@ -150,7 +150,7 @@
             </div>
         </div>
 
-        <div class="relative mb-4 inline-block text-left">
+        <div class="relative inline-block text-left">
             <button
                 class="inline-flex items-center justify-center rounded-md border border-indigo-700 py-3 px-10 text-center text-base font-semibold text-indigo-700 transition hover:border-indigo-700 hover:bg-indigo-700 hover:text-white lg:px-8 xl:px-10">Borrar
                 filtros</button>
@@ -158,5 +158,19 @@
 
 
     </div>
-    <div>Listado de vehiculos</div>
+    <div class="flex flex-col gap-3">
+        <div
+            class="border p-4 flex flex-col gap-1 justify-center items-center md:flex-row md:justify-around text-xl md:text-base">
+            <div class="text-2xl font-semibold md:text-lg">Ford 2016</div>
+            <div>Id: 1</div>
+            <div>Color: Blanco</div>
+            <div>Fecha de ingreso: 2016-01-01</div>
+            <div>Estado: Activo.</div>
+            <div>Asignado: Si.</div>
+            <div><button
+                    class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition hover:bg-indigo-600">Detalles</button>
+            </div>
+        </div>
+
+    </div>
 </div>
