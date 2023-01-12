@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
+import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.compo
     LoginComponent,
     NavbarComponent,
     VehiclesListComponent,
-    VehicleDetailsComponent
+    VehicleDetailsComponent,
+    VehicleFormComponent
   ],
   imports: [
     BrowserModule,
