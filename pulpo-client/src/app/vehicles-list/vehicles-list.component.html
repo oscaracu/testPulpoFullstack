@@ -159,14 +159,16 @@
 
     </div>
     <div class="flex flex-col gap-3">
-        <div
+        <div *ngIf="vehicles.length === 0">Loading...</div>
+        <div *ngFor="let vehicle of vehicles"
             class="border p-4 flex flex-col gap-1 justify-center items-center md:flex-row md:justify-around text-xl md:text-base">
-            <div class="text-2xl font-semibold md:text-lg">Ford 2016</div>
-            <div>Id: 1</div>
-            <div>Color: Blanco</div>
-            <div>Fecha de ingreso: 2016-01-01</div>
-            <div>Estado: Activo.</div>
-            <div>Asignado: Si.</div>
+            <div class="text-2xl font-semibold md:text-lg">{{vehicle.make.name}} {{vehicle.model}}</div>
+            <div>Id: {{vehicle.id}}</div>
+            <div>Color: {{vehicle.color.name}}</div>
+            <div>Fecha de ingreso: {{vehicle.admissionDate}}</div>
+            <div>Estado: <span *ngIf="vehicle.isActive">Activo</span><span *ngIf="!vehicle.isActive">Inactivo</span>
+            </div>
+            <div>Asignado: <span *ngIf="vehicle.isAssigned">Si</span><span *ngIf="!vehicle.isAssigned">No</span></div>
             <div><button
                     class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition hover:bg-indigo-600">Detalles</button>
             </div>
