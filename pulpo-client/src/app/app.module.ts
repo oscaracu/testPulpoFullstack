@@ -11,6 +11,7 @@ import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { StoreModule } from '@ngrx/store';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
     VehiclesListComponent,
     VehicleDetailsComponent,
     VehicleFormComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
