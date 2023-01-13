@@ -4,7 +4,7 @@ import { Color } from 'src/colors/entities/color.entity';
 import { Maker } from 'src/makers/entities/maker.entity';
 import { CreateNoveltyDto } from 'src/novelties/dto/create-novelty.dto';
 import { Novelty } from 'src/novelties/entities/novelty.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { Vehicle } from './entities/vehicle.entity';
@@ -37,23 +37,54 @@ export class VehiclesService {
 
   async findAll(queries): Promise<Vehicle[]> {
     try {
+      let color: string | null;
+      let make: string | null;
+      let model: number | null;
+
+      if (Object.keys(queries).length > 0) {
+        if (queries.hasOwnProperty('search')) {
+          const colorMatch = await this.colorsRepository.find({
+            where: { name: ILike(`%${queries.search}%`) },
+          });
+          const makeMatch = await this.makersRepository.find({
+            where: { name: ILike(`%${queries.search}%`) },
+          });
+
+          if (colorMatch.length > 0) {
+            color = colorMatch[0].name;
+          } else if (makeMatch.length > 0) {
+            make = makeMatch[0].name;
+          } else {
+            model = queries.search;
+          }
+        }
+
+        return await this.vehiclesRepository.find({
+          relations: {
+            make: true,
+            color: true,
+            novelties: true,
+          },
+          where: {
+            make: { id: parseQuery(queries.make), name: make },
+            model: parseQuery(queries.model || model),
+            color: { id: parseQuery(queries.color), name: color },
+            isActive: parseQuery(queries.isActive),
+            isAssigned: parseQuery(queries.isAssigned),
+            novelties: {
+              noveltiesCategoryId: parseQuery(queries.noveltiesCategory),
+            },
+          },
+
+          order: parseSort(queries.order, queries.sort),
+        });
+      }
       return await this.vehiclesRepository.find({
         relations: {
           make: true,
           color: true,
           novelties: true,
         },
-        where: {
-          make: { id: parseQuery(queries.make) },
-          model: parseQuery(queries.model),
-          color: { id: parseQuery(queries.color) },
-          isActive: parseQuery(queries.isActive),
-          isAssigned: parseQuery(queries.isAssigned),
-          novelties: {
-            noveltiesCategoryId: parseQuery(queries.noveltiesCategory),
-          },
-        },
-        order: parseSort(queries.order, queries.sort),
       });
     } catch (error) {
       console.log(error);
@@ -123,7 +154,7 @@ function parseQuery(query) {
       break;
   }
   if (isNaN(query)) {
-    return null;
+    return 0;
   }
 
   return query;
