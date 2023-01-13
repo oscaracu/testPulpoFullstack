@@ -28,7 +28,8 @@ export class VehiclesListComponent implements OnInit {
   constructor(private vehicleService: VehiclesServiceService) {}
 
   vehicles: Vehicle[] = [];
-  colors: Color[] = [];
+  searchParams: URLSearchParams = new URLSearchParams();
+  searchResults: Vehicle[] = [];
 
   ngOnInit(): void {
     this.getVehicles();
@@ -40,10 +41,16 @@ export class VehiclesListComponent implements OnInit {
       .subscribe((vehicles) => (this.vehicles = vehicles));
   }
 
-  getColors(): void {
+  orderBy(selection: string): void {
+    if (this.searchParams.has('order'))
+      this.searchParams.set('order', selection);
+    else this.searchParams.append('order', selection);
+    if (this.searchParams.has('sort')) this.searchParams.set('sort', 'asc');
+    else this.searchParams.append('sort', 'asc');
     this.vehicleService
-      .getColors()
-      .subscribe((colors) => (this.colors = colors));
+      .searchVehicles(this.searchParams.toString())
+      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.toggle('order');
   }
 
   toggle(filter: string) {

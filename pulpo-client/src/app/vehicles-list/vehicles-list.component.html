@@ -33,22 +33,22 @@
             </button>
             <div *ngIf="filtersDropdownState.order"
                 class="absolute left-0 z-40 mt-2 w-full rounded border-[.5px] border-light bg-white py-5 shadow-card transition-all">
-                <a
-                    class="block py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
+                <button (click)="orderBy('make')"
+                    class="block mx-auto py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
                     Marca
-                </a>
-                <a
-                    class="block py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
+                </button>
+                <button (click)="orderBy('model')"
+                    class="block mx-auto py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
                     Modelo
-                </a>
-                <a
-                    class="block py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
+                </button>
+                <button (click)="orderBy('color')"
+                    class="block mx-auto py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
                     Color
-                </a>
-                <a
-                    class="block py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
+                </button>
+                <button (click)="orderBy('admissionDate')"
+                    class="block mx-auto py-2 px-5 text-base font-semibold text-body-color hover:bg-primary hover:bg-opacity-5 hover:text-primary">
                     Fecha Admisión
-                </a>
+                </button>
             </div>
         </div>
 
@@ -162,14 +162,14 @@
         <div *ngIf="vehicles.length === 0">Loading...</div>
         <div *ngFor="let vehicle of vehicles"
             class="border p-4 flex flex-col gap-1 justify-center items-center md:flex-row md:justify-around text-xl md:text-base">
-            <div class="text-2xl font-semibold md:text-lg">{{vehicle.make.name}} {{vehicle.model}}</div>
-            <div>Id: {{vehicle.id}}</div>
-            <div>Color: {{vehicle.color.name}}</div>
-            <div>Fecha de ingreso: {{vehicle.admissionDate}}</div>
-            <div>Estado: <span *ngIf="vehicle.isActive">Activo</span><span *ngIf="!vehicle.isActive">Inactivo</span>
+            <div class="text-2xl font-semibold md:text-lg md:basis-2/6">{{vehicle.make.name}} {{vehicle.model}}</div>
+            <div class="md:basis-1/6">Color: {{vehicle.color.name}}</div>
+            <div class="md:basis-1/6">Estado: <span *ngIf="vehicle.isActive">Activo</span><span
+                    *ngIf="!vehicle.isActive">Inactivo</span>
             </div>
-            <div>Asignado: <span *ngIf="vehicle.isAssigned">Si</span><span *ngIf="!vehicle.isAssigned">No</span></div>
-            <div><button
+            <div class="md:basis-1/6">Asignado: <span *ngIf="vehicle.isAssigned">Si</span><span
+                    *ngIf="!vehicle.isAssigned">No</span></div>
+            <div class="md:basis-1/6 md:text-right"><button
                     class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition hover:bg-indigo-600">Detalles</button>
             </div>
         </div>
