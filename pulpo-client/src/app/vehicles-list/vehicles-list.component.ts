@@ -29,7 +29,6 @@ export class VehiclesListComponent implements OnInit {
 
   vehicles: Vehicle[] = [];
   searchParams: URLSearchParams = new URLSearchParams();
-  searchResults: Vehicle[] = [];
 
   ngOnInit(): void {
     this.getVehicles();
@@ -51,6 +50,33 @@ export class VehiclesListComponent implements OnInit {
       .searchVehicles(this.searchParams.toString())
       .subscribe((vehicles) => (this.vehicles = vehicles));
     this.toggle('order');
+  }
+
+  sort(selection: string): void {
+    if (this.searchParams.has('sort')) this.searchParams.set('sort', selection);
+    else this.searchParams.append('sort', selection);
+    this.vehicleService
+      .searchVehicles(this.searchParams.toString())
+      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.toggle('sort');
+  }
+
+  tabFilter(selection: string, value: string): void {
+    if (this.searchParams.has(selection))
+      this.searchParams.set(selection, value);
+    else this.searchParams.append(selection, value);
+    this.vehicleService
+      .searchVehicles(this.searchParams.toString())
+      .subscribe((vehicles) => (this.vehicles = vehicles));
+  }
+
+  tabReset(): void {
+    if (this.searchParams.has('isActive')) this.searchParams.delete('isActive');
+    if (this.searchParams.has('isAssigned'))
+      this.searchParams.delete('isAssigned');
+    this.vehicleService
+      .searchVehicles(this.searchParams.toString())
+      .subscribe((vehicles) => (this.vehicles = vehicles));
   }
 
   toggle(filter: string) {
