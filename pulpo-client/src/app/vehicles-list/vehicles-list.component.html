@@ -4,14 +4,15 @@
     </div>
     <div class="md:flex md:gap-3">
         <div class="mb-4 md:w-5/6">
-            <input type="text" placeholder="Ingrese color, marca o modelo"
+            <input type="text" [(ngModel)]="searchTerm" id="search-input" (keyup.enter)="search(searchTerm)"
+                placeholder="Ingrese color, marca o modelo"
                 class="w-full rounded-lg border-[1.5px] border-form-stroke py-3 px-5 font-medium text-body-color placeholder-body-color outline-none transition focus:border-indigo-700 active:border-indigo-700 disabled:cursor-default disabled:bg-[#F5F7FD]" />
 
         </div>
         <div class="mb-4 md:w-1/6">
 
-            <button
-                class="w-full inline-flex items-center justify-center rounded-md border border-indigo-700 py-3 px-10 text-center text-base text-indigo-700 transition hover:border-indigo-700 hover:bg-indigo-700 hover:text-white lg:px-8 xl:px-10">Buscar</button>
+            <button type="button" (click)="search(searchTerm)"
+                class="w-full inline-flex items-center justify-center rounded-md border border-indigo-700 py-3 px-10 text-center text-base text-indigo-700 transition hover:border-indigo-700 hover:bg-indigo-700 hover:text-white lg:px-8 xl:px-10 disabled:bg-slate-400 disabled:border-slate-300 disabled:text-slate-100">Buscar</button>
         </div>
     </div>
     <!-- Sección de botones de filtros -->
@@ -118,7 +119,7 @@
         </div>
 
         <div class="relative inline-block text-left">
-            <button
+            <button (click)="reset()"
                 class="inline-flex items-center justify-center rounded-md border border-indigo-700 py-3 px-10 text-center text-base font-semibold text-indigo-700 transition hover:border-indigo-700 hover:bg-indigo-700 hover:text-white lg:px-8 xl:px-10">Borrar
                 filtros</button>
         </div>
@@ -129,18 +130,23 @@
     <div class="p-4 mb-4">
         <ul class="grid grid-flow-row md:grid-flow-col text-center border-b border-gray-200 text-gray-500">
             <li> <button (click)="tabReset()"
+                    [ngClass]="{'border-indigo-600': !searchParams.has('isActive') && !searchParams.has('isAssigned')}"
                     class="w-full text-center border-b-4 border-transparent hover:text-indigo-600 hover:border-indigo-600 py-4">Todos</button>
             </li>
             <li> <button (click)="tabFilter('isActive','true')"
+                    [ngClass]="{'border-indigo-600': searchParams.get('isActive')==='true'}"
                     class="w-full text-center border-b-4 border-transparent hover:text-indigo-600 hover:border-indigo-600 py-4">Activos</button>
             </li>
             <li> <button (click)="tabFilter('isActive','false')"
+                    [ngClass]="{'border-indigo-600': searchParams.get('isActive')==='false'}"
                     class="w-full text-center border-b-4 border-transparent hover:text-indigo-600 hover:border-indigo-600 py-4">Inactivos</button>
             </li>
             <li> <button (click)="tabFilter('isAssigned','true')"
+                    [ngClass]="{'border-indigo-600': searchParams.get('isAssigned')==='true'}"
                     class="w-full text-center border-b-4 border-transparent hover:text-indigo-600 hover:border-indigo-600 py-4">Asignados</button>
             </li>
             <li> <button (click)="tabFilter('isAssigned','false')"
+                    [ngClass]="{'border-indigo-600': searchParams.get('isAssigned')==='false'}"
                     class="w-full text-center border-b-4 border-transparent hover:text-indigo-600 hover:border-indigo-600 py-4">Sin
                     Asignar</button>
             </li>
@@ -148,7 +154,14 @@
     </div>
     <!-- Listado de Vehiculos -->
     <div class="flex flex-col gap-3">
-        <div *ngIf="vehicles.length === 0">Loading...</div>
+        <div *ngIf="isLoading && vehicles.length < 1" class="mx-auto mb-4">
+            <app-spinner></app-spinner>
+        </div>
+
+        <div class="text-center mb-4 text-xl" *ngIf="vehicles.length === 0 && !isLoading">No se encontraron vehículos o
+            coincidencias
+            para mostrar.
+        </div>
         <div *ngFor="let vehicle of vehicles"
             class="border p-4 flex flex-col gap-1 justify-center items-center md:flex-row md:justify-around text-xl md:text-base">
             <div class="text-2xl font-semibold md:text-lg md:basis-2/6">{{vehicle.make.name}} {{vehicle.model}}</div>
