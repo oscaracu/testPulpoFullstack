@@ -66,9 +66,13 @@ export class VehiclesService {
             novelties: true,
           },
           where: {
-            make: { id: parseQuery(queries.make), name: make },
+            make: {
+              name: queries.make || make,
+            },
             model: parseQuery(queries.model || model),
-            color: { id: parseQuery(queries.color), name: color },
+            color: {
+              name: queries.color || color,
+            },
             isActive: parseQuery(queries.isActive),
             isAssigned: parseQuery(queries.isAssigned),
             novelties: {
