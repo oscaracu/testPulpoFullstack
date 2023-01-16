@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Color } from '../color';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
 import { Vehicle } from '../vehicle';
 
@@ -23,6 +21,7 @@ export class VehiclesListComponent implements OnInit {
     sort: false,
     show: false,
     novelties: false,
+    color: false,
   };
 
   constructor(private vehicleService: VehiclesServiceService) {}
@@ -32,15 +31,20 @@ export class VehiclesListComponent implements OnInit {
   isLoading: boolean = false;
   searchTerm: string = '';
 
+  colors!: Set<string>;
+  makes!: Set<string>;
+  models!: Set<string>;
+
   ngOnInit(): void {
-    this.getVehicles();
+    this.getVehicles(this.searchParams.toString());
   }
 
-  getVehicles(): void {
+  getVehicles(input: string): void {
     this.isLoading = true;
-    this.vehicleService
-      .getVehicles()
-      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.vehicleService.getVehicles(input).subscribe((vehicles) => {
+      this.vehicles = vehicles;
+      this.generateFiltersLists(vehicles);
+    });
     this.isLoading = false;
   }
 
@@ -49,11 +53,8 @@ export class VehiclesListComponent implements OnInit {
     if (this.searchParams.has('order'))
       this.searchParams.set('order', selection);
     else this.searchParams.append('order', selection);
-    if (this.searchParams.has('sort')) this.searchParams.set('sort', 'asc');
-    else this.searchParams.append('sort', 'asc');
-    this.vehicleService
-      .searchVehicles(this.searchParams.toString())
-      .subscribe((vehicles) => (this.vehicles = vehicles));
+    if (!this.searchParams.has('sort')) this.searchParams.append('sort', 'asc');
+    this.getVehicles(this.searchParams.toString());
     this.toggle('order');
     this.isLoading = false;
   }
@@ -62,9 +63,7 @@ export class VehiclesListComponent implements OnInit {
     this.isLoading = true;
     if (this.searchParams.has('sort')) this.searchParams.set('sort', selection);
     else this.searchParams.append('sort', selection);
-    this.vehicleService
-      .searchVehicles(this.searchParams.toString())
-      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.getVehicles(this.searchParams.toString());
     this.toggle('sort');
     this.isLoading = false;
   }
@@ -74,9 +73,15 @@ export class VehiclesListComponent implements OnInit {
     if (this.searchParams.has(selection))
       this.searchParams.set(selection, value);
     else this.searchParams.append(selection, value);
-    this.vehicleService
-      .searchVehicles(this.searchParams.toString())
-      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.getVehicles(this.searchParams.toString());
+    this.isLoading = false;
+  }
+
+  filter(type: string, value: string): void {
+    this.isLoading = true;
+    if (this.searchParams.has(type)) this.searchParams.set(type, value);
+    else this.searchParams.append(type, value);
+    this.getVehicles(this.searchParams.toString());
     this.isLoading = false;
   }
 
@@ -85,34 +90,41 @@ export class VehiclesListComponent implements OnInit {
     if (this.searchParams.has('isActive')) this.searchParams.delete('isActive');
     if (this.searchParams.has('isAssigned'))
       this.searchParams.delete('isAssigned');
-    this.vehicleService
-      .searchVehicles(this.searchParams.toString())
-      .subscribe((vehicles) => (this.vehicles = vehicles));
+    this.getVehicles(this.searchParams.toString());
     this.isLoading = false;
   }
 
   search(input: string): void {
-    if (this.searchTerm) {
+    if (input) {
       this.isLoading = true;
       this.searchParams = new URLSearchParams();
       this.searchParams.append('search', input);
-      this.vehicleService
-        .searchVehicles(this.searchParams.toString())
-        .subscribe((vehicles) => (this.vehicles = vehicles));
+      this.getVehicles(this.searchParams.toString());
       this.searchTerm = '';
       this.isLoading = false;
     } else {
-      this.getVehicles();
       this.searchParams = new URLSearchParams();
+      this.getVehicles(this.searchParams.toString());
     }
   }
 
   reset(): void {
     this.searchParams = new URLSearchParams();
-    this.getVehicles();
+    this.getVehicles(this.searchParams.toString());
   }
 
   toggle(filter: string) {
     this.filtersDropdownState[filter] = !this.filtersDropdownState[filter];
+  }
+
+  generateFiltersLists(vehicles: Vehicle[]): void {
+    this.colors = new Set();
+    this.makes = new Set();
+    this.models = new Set();
+    vehicles.forEach((vehicle) => {
+      this.colors.add(vehicle.color.name);
+      this.makes.add(vehicle.make.name);
+      this.models.add(vehicle.model.toString());
+    });
   }
 }

@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
+import { FilterSelectComponent } from './filter-select/filter-select.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     VehicleFormComponent,
     FooterComponent,
     SpinnerComponent,
+    FilterSelectComponent,
   ],
   imports: [
     FormsModule,

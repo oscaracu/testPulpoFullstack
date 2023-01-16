@@ -13,11 +13,7 @@ export class VehiclesServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.vehiclesUrl);
-  }
-
-  searchVehicles(searchQuery: string): Observable<Vehicle[]> {
+  getVehicles(searchQuery: string): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(`${this.vehiclesUrl}?${searchQuery}`);
   }
 
