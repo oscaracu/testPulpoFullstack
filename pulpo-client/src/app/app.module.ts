@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
 import { FilterSelectComponent } from './filter-select/filter-select.component';
+import { NoveltiesCategoriesSelectComponent } from './novelties-categories-select/novelties-categories-select.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FilterSelectComponent } from './filter-select/filter-select.component';
     FooterComponent,
     SpinnerComponent,
     FilterSelectComponent,
+    NoveltiesCategoriesSelectComponent,
   ],
   imports: [
     FormsModule,

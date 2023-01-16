@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NoveltiesCategories } from '../novelties-categories';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
 import { Vehicle } from '../vehicle';
 
@@ -27,16 +28,49 @@ export class VehiclesListComponent implements OnInit {
   constructor(private vehicleService: VehiclesServiceService) {}
 
   vehicles: Vehicle[] = [];
+  noveltiesCategories: NoveltiesCategories[] = [];
   searchParams: URLSearchParams = new URLSearchParams();
-  isLoading: boolean = false;
+  isLoading: boolean = true;
   searchTerm: string = '';
 
   colors!: string[];
   makes!: string[];
   models!: string[];
 
+  currentVehicles: Vehicle[] = [];
+  totalPages: number = 0;
+  currentPage: number = 0;
+  pageItems: number = 5;
+
   ngOnInit(): void {
     this.getVehicles(this.searchParams.toString());
+    this.getNoveltiesCategories();
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      const start = this.currentPage * this.pageItems;
+      const end = start + this.pageItems;
+      this.currentVehicles = this.vehicles.slice(start, end);
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      const start = (this.currentPage - 2) * this.pageItems;
+      const end = start + this.pageItems;
+      this.currentVehicles = this.vehicles.slice(start, end);
+      this.currentPage--;
+    }
+  }
+
+  getNoveltiesCategories(): void {
+    this.isLoading = true;
+    this.vehicleService
+      .getNoveltiesCategories()
+      .subscribe((categories) => (this.noveltiesCategories = categories));
+    this.isLoading = false;
   }
 
   getVehicles(input: string): void {
@@ -44,6 +78,9 @@ export class VehiclesListComponent implements OnInit {
     this.vehicleService.getVehicles(input).subscribe((vehicles) => {
       this.vehicles = vehicles;
       this.generateFiltersLists(vehicles);
+      this.totalPages = Math.ceil(vehicles.length / this.pageItems);
+      this.currentVehicles = vehicles.slice(0, this.pageItems);
+      this.currentPage = 1;
     });
     this.isLoading = false;
   }
