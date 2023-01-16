@@ -31,9 +31,9 @@ export class VehiclesListComponent implements OnInit {
   isLoading: boolean = false;
   searchTerm: string = '';
 
-  colors!: Set<string>;
-  makes!: Set<string>;
-  models!: Set<string>;
+  colors!: string[];
+  makes!: string[];
+  models!: string[];
 
   ngOnInit(): void {
     this.getVehicles(this.searchParams.toString());
@@ -118,13 +118,16 @@ export class VehiclesListComponent implements OnInit {
   }
 
   generateFiltersLists(vehicles: Vehicle[]): void {
-    this.colors = new Set();
-    this.makes = new Set();
-    this.models = new Set();
+    const colorsSet: Set<string> = new Set();
+    const makesSet: Set<string> = new Set();
+    const modelsSet: Set<string> = new Set();
     vehicles.forEach((vehicle) => {
-      this.colors.add(vehicle.color.name);
-      this.makes.add(vehicle.make.name);
-      this.models.add(vehicle.model.toString());
+      colorsSet.add(vehicle.color.name);
+      makesSet.add(vehicle.make.name);
+      modelsSet.add(vehicle.model.toString());
     });
+    this.colors = Array.from(colorsSet).sort();
+    this.makes = Array.from(makesSet).sort();
+    this.models = Array.from(modelsSet).sort();
   }
 }

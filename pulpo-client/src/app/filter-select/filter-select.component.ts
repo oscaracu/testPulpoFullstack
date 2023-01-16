@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./filter-select.component.css'],
 })
 export class FilterSelectComponent {
-  @Input() options!: Set<string>;
+  @Input() options!: string[];
   @Input() listName!: string;
   @Output() selected = new EventEmitter<string>();
 

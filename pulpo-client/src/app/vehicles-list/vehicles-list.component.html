@@ -124,15 +124,12 @@
                 filtros</button>
         </div>
 
-
-
-
     </div>
 
-    <div>
+    <div class="md:flex md:gap-3 md:justify-center">
         <app-filter-select [options]="colors" [listName]="'Color'"
             (selected)="filter('color', $event)"></app-filter-select>
-        <app-filter-select [options]="makes" [listName]="'Marca'"
+        <app-filter-select class="md:basis-1/6" [options]="makes" [listName]="'Marca'"
             (selected)="filter('make', $event)"></app-filter-select>
         <app-filter-select [options]="models" [listName]="'Modelo'"
             (selected)="filter('model', $event)"></app-filter-select>
