@@ -25,12 +25,15 @@ export class Novelty {
   @CreateDateColumn()
   public createdDate!: string;
 
-  @ManyToOne(() => Vehicle, (vehicle) => vehicle.novelties)
+  @ManyToOne(() => Vehicle, (vehicle) => vehicle.novelties, {
+    onDelete: 'CASCADE',
+  })
   public vehicle!: Vehicle;
 
   @ManyToOne(
     () => NoveltiesCategory,
     (noveltiesCategory) => noveltiesCategory.novelties,
+    { onDelete: 'CASCADE' },
   )
   public noveltiesCategory!: NoveltiesCategory;
 }
