@@ -45,10 +45,11 @@
                                 </div>
                             </li>
                         </ul>
-                        <form [formGroup]="newNovelty" class="flex flex-col gap-3 pt-4 md:flex-row md:items-center">
+                        <form *ngIf="noveltiesCategories" [formGroup]="newNovelty"
+                            class="flex flex-col gap-3 pt-4 md:flex-row md:items-center" (ngSubmit)="onSubmit()">
                             <select formControlName="noveltiesCategoryId" id="category" autocomplete="off"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                <option value="" disabled>Categoría</option>
+                                <option value="0" disabled>Categoría</option>
                                 <option *ngFor="let category of noveltiesCategories" [ngValue]="category.id">
                                     {{category.name}}</option>
                             </select>
@@ -59,7 +60,6 @@
                             <button
                                 class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition duration-500 hover:bg-indigo-600">Agregar</button>
                         </form>
-                        <p>{{newNovelty.value | json}} </p>
                     </dd>
 
                 </div>

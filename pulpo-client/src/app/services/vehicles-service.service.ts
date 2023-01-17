@@ -26,7 +26,10 @@ export class VehiclesServiceService {
     return this.http.get<Color[]>(`${this.apiUrl}/colors`);
   }
 
-  addNovelty(vehicleId: number, novelty: Novelty): Observable<Vehicle> {
+  addNovelty(
+    vehicleId: number,
+    novelty: Partial<Novelty>
+  ): Observable<Vehicle> {
     return this.http.post<Vehicle>(
       `${this.apiUrl}/vehicles/${vehicleId}/novelties`,
       novelty

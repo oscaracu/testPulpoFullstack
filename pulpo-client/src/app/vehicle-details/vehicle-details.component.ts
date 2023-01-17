@@ -13,10 +13,11 @@ import { Vehicle } from '../vehicle';
 })
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
-  noveltiesCategories: NoveltiesCategories[] = [];
+  noveltiesCategories!: NoveltiesCategories[];
+
   newNovelty = new FormGroup({
-    noveltiesCategoryId: new FormControl(''),
-    description: new FormControl(''),
+    noveltiesCategoryId: new FormControl(0, { nonNullable: true }),
+    description: new FormControl('', { nonNullable: true }),
   });
 
   constructor(
@@ -41,5 +42,14 @@ export class VehicleDetailsComponent implements OnInit {
     this.vehicleService
       .getNoveltiesCategories()
       .subscribe((categories) => (this.noveltiesCategories = categories));
+  }
+
+  onSubmit(): void {
+    const novelty: Partial<Novelty> = this.newNovelty.value;
+    this.vehicleService
+      .addNovelty(this.vehicle.id, novelty)
+      .subscribe((vehicle) => (this.vehicle.novelties = vehicle.novelties));
+
+    this.newNovelty.reset();
   }
 }
