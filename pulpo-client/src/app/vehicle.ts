@@ -10,5 +10,5 @@ export interface Vehicle {
   admissionDate: string;
   isActive: boolean;
   isAssigned: boolean;
-  novelties?: Novelty;
+  novelties: Novelty[];
 }
