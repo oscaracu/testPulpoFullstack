@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Color } from '../color';
 import { NoveltiesCategories } from '../novelties-categories';
+import { Novelty } from '../novelty';
 import { Vehicle } from '../vehicle';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VehiclesServiceService {
-  vehiclesUrl = 'http://localhost:3000/vehicles';
-  colorsUrl = 'http://localhost:3000/colors/';
   apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
@@ -20,11 +19,18 @@ export class VehiclesServiceService {
   }
 
   getVehicles(searchQuery: string): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(`${this.vehiclesUrl}?${searchQuery}`);
+    return this.http.get<Vehicle[]>(`${this.apiUrl}/vehicles?${searchQuery}`);
   }
 
   getColors(): Observable<Color[]> {
-    return this.http.get<Color[]>(this.colorsUrl);
+    return this.http.get<Color[]>(`${this.apiUrl}/colors`);
+  }
+
+  addNovelty(vehicleId: number, novelty: Novelty): Observable<Vehicle> {
+    return this.http.post<Vehicle>(
+      `${this.apiUrl}/vehicles/${vehicleId}/novelties`,
+      novelty
+    );
   }
 
   getNoveltiesCategories(): Observable<NoveltiesCategories[]> {

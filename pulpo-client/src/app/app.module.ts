@@ -13,7 +13,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { StoreModule } from '@ngrx/store';
 import { FooterComponent } from './footer/footer.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterSelectComponent } from './filter-select/filter-select.component';
 import { NoveltiesCategoriesSelectComponent } from './novelties-categories-select/novelties-categories-select.component';
 
@@ -33,6 +33,7 @@ import { NoveltiesCategoriesSelectComponent } from './novelties-categories-selec
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
