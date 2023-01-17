@@ -14,6 +14,7 @@ import { Vehicle } from '../vehicle';
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
   noveltiesCategories!: NoveltiesCategories[];
+  delete: boolean = true;
 
   newNovelty = new FormGroup({
     noveltiesCategoryId: new FormControl(0, { nonNullable: true }),
