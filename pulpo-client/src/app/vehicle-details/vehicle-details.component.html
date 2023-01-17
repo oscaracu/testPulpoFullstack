@@ -115,7 +115,7 @@
                     class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                     Cancelar
                 </button>
-                <button
+                <button (click)="onDelete(vehicle.id.toString())"
                     class="mb-2 md:mb-0 bg-red-800 border border-red-800 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Eliminar</button>
             </div>
         </div>

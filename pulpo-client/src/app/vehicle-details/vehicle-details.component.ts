@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NoveltiesCategories } from '../novelties-categories';
 import { Novelty } from '../novelty';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
@@ -14,7 +14,7 @@ import { Vehicle } from '../vehicle';
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
   noveltiesCategories!: NoveltiesCategories[];
-  delete: boolean = true;
+  delete: boolean = false;
 
   newNovelty = new FormGroup({
     noveltiesCategoryId: new FormControl(0, { nonNullable: true }),
@@ -23,7 +23,8 @@ export class VehicleDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private vehicleService: VehiclesServiceService
+    private vehicleService: VehiclesServiceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,5 +53,12 @@ export class VehicleDetailsComponent implements OnInit {
       .subscribe((vehicle) => (this.vehicle.novelties = vehicle.novelties));
 
     this.newNovelty.reset();
+  }
+
+  onDelete(id: string): void {
+    this.vehicleService.deleteVehicle(id).subscribe(() => {
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/dashboard']);
+    });
   }
 }

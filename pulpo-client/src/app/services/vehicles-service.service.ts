@@ -22,6 +22,10 @@ export class VehiclesServiceService {
     return this.http.get<Vehicle[]>(`${this.apiUrl}/vehicles?${searchQuery}`);
   }
 
+  deleteVehicle(id: string): Observable<Vehicle> {
+    return this.http.delete<Vehicle>(`${this.apiUrl}/vehicles/${id}`);
+  }
+
   getColors(): Observable<Color[]> {
     return this.http.get<Color[]>(`${this.apiUrl}/colors`);
   }
