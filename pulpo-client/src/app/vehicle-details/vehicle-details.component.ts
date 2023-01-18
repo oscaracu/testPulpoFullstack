@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoveltiesCategories } from '../novelties-categories';
 import { Novelty } from '../novelty';
@@ -17,8 +17,8 @@ export class VehicleDetailsComponent implements OnInit {
   delete: boolean = false;
 
   newNovelty = new FormGroup({
-    noveltiesCategoryId: new FormControl(0, { nonNullable: true }),
-    description: new FormControl('', { nonNullable: true }),
+    noveltiesCategoryId: new FormControl(1, { nonNullable: true }),
+    description: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -53,6 +53,13 @@ export class VehicleDetailsComponent implements OnInit {
       .subscribe((vehicle) => (this.vehicle.novelties = vehicle.novelties));
 
     this.newNovelty.reset();
+  }
+
+  updateState(state: string, value: boolean): void {
+    const vehicle: Partial<Vehicle> = { [state]: value };
+    this.vehicleService
+      .updateVehicle(this.vehicle.id, vehicle)
+      .subscribe(() => this.getVehicle(this.vehicle.id));
   }
 
   onDelete(id: string): void {

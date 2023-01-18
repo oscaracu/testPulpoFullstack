@@ -1,0 +1,27 @@
+input:checked ~ .box {
+    background: #3056D3;
+}
+input:checked ~ .box {
+    border-color: #3056D3;
+}
+input:checked ~ .box {
+    border-color: #3056D3;
+}
+input:checked ~ .box span {
+    background: #3056D3;
+}
+
+input:checked ~ .dot {
+    background: #3056D3;
+    transform: translateX(100%);
+}
+input:checked ~ .dot .active {
+    display: block;
+}
+input:checked ~ .dot .inactive {
+    display: none;
+}
+input:checked ~ .dot {
+    background: #fff;
+    transform: translateX(100%);
+}

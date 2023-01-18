@@ -11,7 +11,10 @@
             <dl>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Id:</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{vehicle.id}}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+
+                        {{vehicle.id}}
+                    </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Color:</dt>
@@ -23,24 +26,45 @@
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Estado:</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        {{vehicle.isActive?'Activo':'Inactivo'}}.</dd>
+                    <dd class="flex items-center justify-between mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                        <div>
+                            {{vehicle.isActive?'Activo':'Inactivo'}}.
+
+                        </div>
+                        <div>
+
+                            <app-toggle-btn [toggleState]="vehicle.isActive" [currentState]="'isActive'"
+                                (stateChange)="updateState('isActive',$event)"></app-toggle-btn>
+                        </div>
+
+                    </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Asignado:</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{vehicle.isAssigned?'Si':'No'}}.</dd>
+                    <dd class="flex items-center justify-between mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                        <div>
+                            {{vehicle.isAssigned?'Si':'No'}}.
+
+                        </div>
+                        <div>
+                            <app-toggle-btn [toggleState]="vehicle.isAssigned" [currentState]="'isAssigned'"
+                                (stateChange)="updateState('isAssigned',$event)"></app-toggle-btn>
+
+                        </div>
+                    </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Novedades:</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-                            <li *ngFor="let novelty of vehicle.novelties"
+                        <ul role="listbox" tabindex="-1"
+                            class="divide-y divide-gray-200 rounded-md border border-gray-200 max-h-80 overflow-auto z-10">
+                            <li *ngFor="let novelty of vehicle.novelties.reverse()"
                                 class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
                                 <div class="flex w-0 flex-1 items-center">
                                     <span class="ml-2 w-0 flex-1 truncate">{{novelty.description}} </span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <p class="font-medium text-indigo-600 hover:text-indigo-500">{{novelty.createdDate}}
+                                    <p class="font-medium text-indigo-600">{{novelty.createdDate}}
                                     </p>
                                 </div>
                             </li>
@@ -57,8 +81,8 @@
                                 placeholder="Breve descripción aquí..."
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
 
-                            <button
-                                class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition duration-500 hover:bg-indigo-600">Agregar</button>
+                            <button [disabled]="!newNovelty.valid"
+                                class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition duration-500 hover:bg-indigo-600 disabled:bg-gray-500">Agregar</button>
                         </form>
                     </dd>
 

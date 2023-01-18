@@ -16,6 +16,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterSelectComponent } from './filter-select/filter-select.component';
 import { NoveltiesCategoriesSelectComponent } from './novelties-categories-select/novelties-categories-select.component';
+import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NoveltiesCategoriesSelectComponent } from './novelties-categories-selec
     SpinnerComponent,
     FilterSelectComponent,
     NoveltiesCategoriesSelectComponent,
+    ToggleBtnComponent,
   ],
   imports: [
     FormsModule,

@@ -127,11 +127,12 @@
     </div>
     <!-- Listado de Vehiculos -->
     <div class="flex flex-col gap-3">
-        <div *ngIf="isLoading" class="mx-auto mb-4">
+        <div *ngIf="!currentVehicles" class="mx-auto mb-4">
             <app-spinner></app-spinner>
         </div>
 
-        <div class="text-center mb-4 text-xl" *ngIf="!isLoading && vehicles.length === 0">No se encontraron vehículos o
+        <div class="text-center mb-4 text-xl" *ngIf="currentVehicles && currentVehicles.length===0">No se encontraron
+            vehículos o
             coincidencias
             para mostrar.
         </div>

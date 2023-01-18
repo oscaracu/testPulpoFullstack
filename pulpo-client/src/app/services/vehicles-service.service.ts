@@ -22,6 +22,10 @@ export class VehiclesServiceService {
     return this.http.get<Vehicle[]>(`${this.apiUrl}/vehicles?${searchQuery}`);
   }
 
+  updateVehicle(id: number, vehicle: Partial<Vehicle>): Observable<Vehicle> {
+    return this.http.patch<Vehicle>(`${this.apiUrl}/vehicles/${id}`, vehicle);
+  }
+
   deleteVehicle(id: string): Observable<Vehicle> {
     return this.http.delete<Vehicle>(`${this.apiUrl}/vehicles/${id}`);
   }
