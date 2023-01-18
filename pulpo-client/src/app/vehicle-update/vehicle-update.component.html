@@ -1,0 +1,2 @@
+<app-vehicle-form *ngIf="vehicle" [currentVehicleData]="vehicle"
+    (newVehicleData)="updateVehicle(vehicle.id, $event)"></app-vehicle-form>

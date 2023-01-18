@@ -5,6 +5,7 @@ import { NoveltiesCategories } from '../novelties-categories';
 import { Novelty } from '../novelty';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
 import { Vehicle } from '../vehicle';
+import { VehicleForm } from '../vehicle-form/vehicleForm';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -56,7 +57,7 @@ export class VehicleDetailsComponent implements OnInit {
   }
 
   updateState(state: string, value: boolean): void {
-    const vehicle: Partial<Vehicle> = { [state]: value };
+    const vehicle: Partial<VehicleForm> = { [state]: value };
     this.vehicleService
       .updateVehicle(this.vehicle.id, vehicle)
       .subscribe(() => this.getVehicle(this.vehicle.id));

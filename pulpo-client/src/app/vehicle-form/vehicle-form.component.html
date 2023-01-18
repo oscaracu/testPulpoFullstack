@@ -19,7 +19,7 @@
                                     <label for="make" class="block text-sm font-medium text-gray-700">Fabricante</label>
                                     <select id="make" autocomplete="off" formControlName="make"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option value="" disabled>Seleccione la marca</option>
+                                        <option value=0 disabled>Seleccione la marca</option>
                                         <option *ngFor="let make of makers" [ngValue]="make.id">{{make.name}}</option>
                                     </select>
                                 </div>
@@ -27,7 +27,7 @@
                                     <label for="model" class="block text-sm font-medium text-gray-700">Modelo</label>
                                     <select id="model" autocomplete="off" formControlName="model"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option value="" disabled>Seleccione el año</option>
+                                        <option value=0 disabled>Seleccione el año</option>
                                         <option *ngFor="let model of models()" [ngValue]="model">{{model}}</option>
                                     </select>
                                 </div>
@@ -35,7 +35,7 @@
                                     <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
                                     <select id="color" autocomplete="off" formControlName="color"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option value="" disabled>Seleccione un color</option>
+                                        <option value=0 disabled>Seleccione un color</option>
                                         <option *ngFor="let color of colors" [ngValue]="color.id">{{color.name}}
                                         </option>
                                     </select>

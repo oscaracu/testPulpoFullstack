@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Color } from '../color';
 import { Maker } from '../maker';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
+import { Vehicle } from '../vehicle';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -10,6 +11,9 @@ import { VehiclesServiceService } from '../services/vehicles-service.service';
   styleUrls: ['./vehicle-form.component.css'],
 })
 export class VehicleFormComponent implements OnInit {
+  @Input() currentVehicleData!: Vehicle;
+  @Output() newVehicleData = new EventEmitter();
+
   colors!: Color[];
   makers!: Maker[];
 
@@ -21,21 +25,26 @@ export class VehicleFormComponent implements OnInit {
   isAssigned!: boolean;
 
   vehicleForm = new FormGroup({
-    make: new FormControl(this.make || '', Validators.required),
-    model: new FormControl(this.model || '', Validators.required),
-    color: new FormControl(this.color || '', Validators.required),
-    admissionDate: new FormControl(
-      this.admissionDate || '',
-      Validators.required
-    ),
-    isActive: new FormControl(this.isActive || true),
-    isAssigned: new FormControl(this.isAssigned || false),
+    make: new FormControl(0, Validators.required),
+    model: new FormControl(0, Validators.required),
+    color: new FormControl(0, Validators.required),
+    admissionDate: new FormControl('', Validators.required),
+    isActive: new FormControl(true),
+    isAssigned: new FormControl(false),
   });
 
   constructor(private vehiclesService: VehiclesServiceService) {}
 
   ngOnInit(): void {
     this.getOptionsLists();
+    this.vehicleForm.setValue({
+      make: this.currentVehicleData.make.id,
+      model: this.currentVehicleData.model,
+      color: this.currentVehicleData.color.id,
+      admissionDate: this.currentVehicleData.admissionDate,
+      isActive: this.currentVehicleData.isActive,
+      isAssigned: this.currentVehicleData.isAssigned,
+    });
   }
 
   getOptionsLists(): void {
@@ -61,6 +70,6 @@ export class VehicleFormComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.vehicleForm.value);
+    this.newVehicleData.emit(this.vehicleForm.value);
   }
 }

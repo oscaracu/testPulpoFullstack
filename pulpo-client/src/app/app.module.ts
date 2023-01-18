@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterSelectComponent } from './filter-select/filter-select.component';
 import { NoveltiesCategoriesSelectComponent } from './novelties-categories-select/novelties-categories-select.component';
 import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
+import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
     FilterSelectComponent,
     NoveltiesCategoriesSelectComponent,
     ToggleBtnComponent,
+    VehicleUpdateComponent,
   ],
   imports: [
     FormsModule,

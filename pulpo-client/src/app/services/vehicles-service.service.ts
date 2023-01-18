@@ -6,6 +6,7 @@ import { Maker } from '../maker';
 import { NoveltiesCategories } from '../novelties-categories';
 import { Novelty } from '../novelty';
 import { Vehicle } from '../vehicle';
+import { VehicleForm } from '../vehicle-form/vehicleForm';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,10 @@ export class VehiclesServiceService {
     return this.http.get<Vehicle[]>(`${this.apiUrl}/vehicles?${searchQuery}`);
   }
 
-  updateVehicle(id: number, vehicle: Partial<Vehicle>): Observable<Vehicle> {
+  updateVehicle(
+    id: number,
+    vehicle: Partial<VehicleForm>
+  ): Observable<Vehicle> {
     return this.http.patch<Vehicle>(`${this.apiUrl}/vehicles/${id}`, vehicle);
   }
 
