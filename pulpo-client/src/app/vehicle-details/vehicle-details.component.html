@@ -22,7 +22,8 @@
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Fecha de ingreso:</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{vehicle.admissionDate}}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{vehicle.admissionDate |
+                        date:'shortDate'}}</dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Estado:</dt>
@@ -64,7 +65,7 @@
                                     <span class="ml-2 w-0 flex-1 truncate">{{novelty.description}} </span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <p class="font-medium text-indigo-600">{{novelty.createdDate}}
+                                    <p class="font-medium text-indigo-600">{{novelty.createdDate | date:'short'}}
                                     </p>
                                 </div>
                             </li>

@@ -1,44 +1,43 @@
-<div class="container my-6 px-6 mx-auto md:px-20">
+<div class="container my-12 px-6 mx-auto md:px-20">
 
 
     <div class="mt-10 sm:mt-0">
         <div class="md:grid md:grid-cols-3 md:gap-6">
             <div class="md:col-span-1">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-2xl font-medium leading-6 text-gray-900">Alta de vehículos</h3>
-                    <p class="mt-1 text-sm text-gray-600">Por favor ingrese toda la información solicitada.</p>
+                    <h3 class="text-2xl font-medium leading-6 text-gray-900">Formulario de vehículos</h3>
+                    <p class="mt-1 text-sm text-gray-600">Seleccione de las listas de selección las opciones que se
+                        ajusten a las características de su vehículo y de click en el botón <b>Guardar</b>.</p>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0">
-                <form action="#" method="POST">
+                <form [formGroup]="vehicleForm" (ngSubmit)="onSave()">
                     <div class="overflow-hidden shadow sm:rounded-md">
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="make" class="block text-sm font-medium text-gray-700">Fabricante</label>
-                                    <select id="make" name="make" autocomplete="off"
+                                    <select id="make" autocomplete="off" formControlName="make"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option>Ford</option>
-                                        <option>Dodge</option>
-                                        <option>Nissan</option>
+                                        <option value="" disabled>Seleccione la marca</option>
+                                        <option *ngFor="let make of makers" [ngValue]="make.id">{{make.name}}</option>
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="model" class="block text-sm font-medium text-gray-700">Modelo</label>
-                                    <select id="model" name="model" autocomplete="off"
+                                    <select id="model" autocomplete="off" formControlName="model"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option>2016</option>
-                                        <option>2017</option>
-                                        <option>2018</option>
+                                        <option value="" disabled>Seleccione el año</option>
+                                        <option *ngFor="let model of models()" [ngValue]="model">{{model}}</option>
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-                                    <select id="color" name="color" autocomplete="off"
+                                    <select id="color" autocomplete="off" formControlName="color"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option>Blanco</option>
-                                        <option>Negro</option>
-                                        <option>Plata</option>
+                                        <option value="" disabled>Seleccione un color</option>
+                                        <option *ngFor="let color of colors" [ngValue]="color.id">{{color.name}}
+                                        </option>
                                     </select>
                                 </div>
 
@@ -47,34 +46,35 @@
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="admissionDate" class="block text-sm font-medium text-gray-700">Fecha de
                                         ingreso</label>
-                                    <input type="date" name="admissionDate" id="admissionDate" autocomplete="off"
+                                    <input type="date" formControlName="admissionDate" id="admissionDate"
+                                        autocomplete="off"
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="isActive" class="block text-sm font-medium text-gray-700">Estado</label>
-                                    <select id="isActive" name="isActive" autocomplete="off"
+                                    <select id="isActive" formControlName="isActive" autocomplete="off"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option>Activo</option>
-                                        <option>Inactivo</option>
+                                        <option [ngValue]="true">Activo</option>
+                                        <option [ngValue]="false">Inactivo</option>
                                     </select>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="isAssigned"
                                         class="block text-sm font-medium text-gray-700">Asignado</label>
-                                    <select id="isAssigned" name="isAssigned" autocomplete="off"
+                                    <select id="isAssigned" formControlName="isAssigned" autocomplete="off"
                                         class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                        <option>Si</option>
-                                        <option>No</option>
+                                        <option [ngValue]="true">Si</option>
+                                        <option [ngValue]="false">No</option>
                                     </select>
                                 </div>
 
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                            <button type="submit"
-                                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Crear</button>
+                            <button type="submit" [disabled]="!vehicleForm.valid"
+                                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-500">Guardar</button>
                         </div>
                     </div>
                 </form>

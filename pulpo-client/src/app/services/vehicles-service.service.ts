@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Color } from '../color';
+import { Maker } from '../maker';
 import { NoveltiesCategories } from '../novelties-categories';
 import { Novelty } from '../novelty';
 import { Vehicle } from '../vehicle';
@@ -32,6 +33,10 @@ export class VehiclesServiceService {
 
   getColors(): Observable<Color[]> {
     return this.http.get<Color[]>(`${this.apiUrl}/colors`);
+  }
+
+  getMakers(): Observable<Maker[]> {
+    return this.http.get<Maker[]>(`${this.apiUrl}/makers`);
   }
 
   addNovelty(
