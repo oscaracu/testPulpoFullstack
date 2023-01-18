@@ -10,8 +10,8 @@ export class ColorsService {
   constructor(
     @InjectRepository(Color)
     private colorsRepository: Repository<Color>,
-  ){}
-  
+  ) {}
+
   create(createColorDto: CreateColorDto): Promise<Color> {
     const color = new Color();
     color.name = createColorDto.name;
@@ -19,15 +19,15 @@ export class ColorsService {
   }
 
   async findAll(): Promise<Color[]> {
-    return await this.colorsRepository.find();
+    return await this.colorsRepository.find({ order: { name: 'ASC' } });
   }
 
   findOne(id: number): Promise<Color> {
-    return this.colorsRepository.findOneBy({id:id});
+    return this.colorsRepository.findOneBy({ id: id });
   }
 
   async update(id: number, updateColorDto: UpdateColorDto): Promise<Color> {
-    const colorToUpdate = await this.colorsRepository.findOneBy({id:id});
+    const colorToUpdate = await this.colorsRepository.findOneBy({ id: id });
     colorToUpdate.name = updateColorDto.name;
     return this.colorsRepository.save(colorToUpdate);
   }
