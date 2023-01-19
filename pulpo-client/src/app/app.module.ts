@@ -18,6 +18,7 @@ import { FilterSelectComponent } from './filter-select/filter-select.component';
 import { NoveltiesCategoriesSelectComponent } from './novelties-categories-select/novelties-categories-select.component';
 import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
 import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.component';
+import { VehicleCreationComponent } from './vehicle-creation/vehicle-creation.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.componen
     NoveltiesCategoriesSelectComponent,
     ToggleBtnComponent,
     VehicleUpdateComponent,
+    VehicleCreationComponent,
   ],
   imports: [
     FormsModule,

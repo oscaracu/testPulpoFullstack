@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Color } from '../color';
@@ -13,6 +12,7 @@ import { Vehicle } from '../vehicle';
 })
 export class VehicleFormComponent implements OnInit {
   @Input() currentVehicleData!: Vehicle;
+  @Input() formTitle!: string;
   @Output() newVehicleData = new EventEmitter();
   @Output() backButton = new EventEmitter();
 
@@ -35,21 +35,21 @@ export class VehicleFormComponent implements OnInit {
     isAssigned: new FormControl(false),
   });
 
-  constructor(
-    private vehiclesService: VehiclesServiceService,
-    private location: Location
-  ) {}
+  constructor(private vehiclesService: VehiclesServiceService) {}
 
   ngOnInit(): void {
     this.getOptionsLists();
-    this.vehicleForm.setValue({
-      make: this.currentVehicleData.make.id,
-      model: this.currentVehicleData.model,
-      color: this.currentVehicleData.color.id,
-      admissionDate: this.currentVehicleData.admissionDate,
-      isActive: this.currentVehicleData.isActive,
-      isAssigned: this.currentVehicleData.isAssigned,
-    });
+
+    if (this.currentVehicleData) {
+      this.vehicleForm.setValue({
+        make: this.currentVehicleData.make.id,
+        model: this.currentVehicleData.model,
+        color: this.currentVehicleData.color.id,
+        admissionDate: this.currentVehicleData.admissionDate,
+        isActive: this.currentVehicleData.isActive,
+        isAssigned: this.currentVehicleData.isAssigned,
+      });
+    }
   }
 
   getOptionsLists(): void {
@@ -76,6 +76,13 @@ export class VehicleFormComponent implements OnInit {
 
   onSave() {
     this.newVehicleData.emit(this.vehicleForm.value);
+    this.vehicleForm.reset({
+      make: 0,
+      model: 0,
+      color: 0,
+      isActive: true,
+      isAssigned: false,
+    });
   }
 
   goBack(): void {

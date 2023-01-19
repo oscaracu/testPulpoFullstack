@@ -31,6 +31,10 @@ export class VehiclesServiceService {
     return this.http.patch<Vehicle>(`${this.apiUrl}/vehicles/${id}`, vehicle);
   }
 
+  createVehicle(vehicle: VehicleForm): Observable<Vehicle> {
+    return this.http.post<Vehicle>(`${this.apiUrl}/vehicles`, vehicle);
+  }
+
   deleteVehicle(id: string): Observable<Vehicle> {
     return this.http.delete<Vehicle>(`${this.apiUrl}/vehicles/${id}`);
   }
