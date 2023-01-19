@@ -93,7 +93,7 @@
     </div>
     <div class="md:flex md:flex-row md:justify-center">
         <div class="m-3 text-center">
-            <button
+            <button [routerLink]="['/dashboard/vehicle-update', vehicle.id]"
                 class="py-3 px-5 rounded-md font-semibold bg-indigo-700 text-white transition duration-500 hover:bg-indigo-600">Editar
                 Vehiculo</button>
 

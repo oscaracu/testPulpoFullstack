@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Color } from '../color';
@@ -33,7 +34,10 @@ export class VehicleFormComponent implements OnInit {
     isAssigned: new FormControl(false),
   });
 
-  constructor(private vehiclesService: VehiclesServiceService) {}
+  constructor(
+    private vehiclesService: VehiclesServiceService,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.getOptionsLists();
@@ -71,5 +75,9 @@ export class VehicleFormComponent implements OnInit {
 
   onSave() {
     this.newVehicleData.emit(this.vehicleForm.value);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

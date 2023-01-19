@@ -47,10 +47,15 @@ export class VehicleUpdateComponent implements OnInit {
       }
     });
 
-    this.vehicleService
-      .updateVehicle(vehicleId, changedValues)
-      .subscribe((vehicle) => console.log(vehicle));
-
-    console.log(changedValues);
+    if (Object.keys(changedValues).length === 0) {
+      this.router.navigate(['/dashboard/vehicle-details', vehicleId]);
+    } else {
+      this.vehicleService
+        .updateVehicle(vehicleId, changedValues)
+        .subscribe(() => {
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.navigate(['dashboard/vehicle-details', vehicleId]);
+        });
+    }
   }
 }
