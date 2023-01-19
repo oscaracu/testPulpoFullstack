@@ -1,2 +1,2 @@
-<app-vehicle-form *ngIf="vehicle" [currentVehicleData]="vehicle"
-    (newVehicleData)="updateVehicle(vehicle.id, $event)"></app-vehicle-form>
+<app-vehicle-form *ngIf="vehicle" [currentVehicleData]="vehicle" (newVehicleData)="updateVehicle(vehicle.id, $event)"
+    (backButton)="goBack()"></app-vehicle-form>

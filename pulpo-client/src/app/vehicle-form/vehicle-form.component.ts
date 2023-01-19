@@ -14,6 +14,7 @@ import { Vehicle } from '../vehicle';
 export class VehicleFormComponent implements OnInit {
   @Input() currentVehicleData!: Vehicle;
   @Output() newVehicleData = new EventEmitter();
+  @Output() backButton = new EventEmitter();
 
   colors!: Color[];
   makers!: Maker[];
@@ -78,6 +79,6 @@ export class VehicleFormComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.backButton.emit();
   }
 }

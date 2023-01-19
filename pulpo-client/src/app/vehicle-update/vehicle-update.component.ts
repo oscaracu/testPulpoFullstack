@@ -58,4 +58,8 @@ export class VehicleUpdateComponent implements OnInit {
         });
     }
   }
+
+  goBack(): void {
+    this.router.navigate(['/dashboard/vehicle-details', this.vehicle.id]);
+  }
 }
