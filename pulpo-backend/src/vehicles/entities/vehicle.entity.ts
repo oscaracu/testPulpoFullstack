@@ -36,6 +36,6 @@ export class Vehicle {
   @UpdateDateColumn({ type: 'date' })
   updateDate: string;
 
-  @OneToMany(() => Novelty, (novelty) => novelty.vehicle, { cascade: true })
+  @OneToMany((type) => Novelty, (novelty) => novelty.vehicle, { cascade: true })
   public novelties!: Novelty[];
 }

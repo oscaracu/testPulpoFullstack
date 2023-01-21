@@ -13,6 +13,10 @@ import { NoveltiesModule } from './novelties/novelties.module';
 import { Novelty } from './novelties/entities/novelty.entity';
 import { NoveltiesCategoriesModule } from './novelties-categories/novelties-categories.module';
 import { NoveltiesCategory } from './novelties-categories/entities/novelties-category.entity';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
+import { User } from './users/entities/user.entity';
+import { Role } from './roles/entities/role.entity';
 
 @Module({
   imports: [
@@ -27,11 +31,13 @@ import { NoveltiesCategory } from './novelties-categories/entities/novelties-cat
       username: process.env.DB_USER,
       password: process.env.DB_PWD,
       database: 'pulpo',
-      entities: [Vehicle, Maker, Color, Novelty, NoveltiesCategory],
+      entities: [Vehicle, Maker, Color, Novelty, NoveltiesCategory, User, Role],
       synchronize: true,
     }),
     NoveltiesModule,
     NoveltiesCategoriesModule,
+    UsersModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
