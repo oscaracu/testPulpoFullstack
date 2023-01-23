@@ -19,6 +19,7 @@ import { NoveltiesCategoriesSelectComponent } from './novelties-categories-selec
 import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
 import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.component';
 import { VehicleCreationComponent } from './vehicle-creation/vehicle-creation.component';
+import { interceptorProvider } from './interceptors/vehicles.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { VehicleCreationComponent } from './vehicle-creation/vehicle-creation.co
     HttpClientModule,
     StoreModule.forRoot({}, {}),
   ],
-  providers: [],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

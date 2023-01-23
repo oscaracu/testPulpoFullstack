@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginGuard } from './guards/login.guard';
 import { LoginComponent } from './login/login.component';
 import { VehicleCreationComponent } from './vehicle-creation/vehicle-creation.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
@@ -8,7 +9,7 @@ import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.componen
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: 'dashboard',
     component: DashboardComponent,

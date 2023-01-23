@@ -33,6 +33,18 @@ export class TokenService {
     return username;
   }
 
+  isAdmin(): boolean | null {
+    if (!this.isLogged()) {
+      return null;
+    }
+    const token = this.getToken();
+    const payload = token?.split('.')[1];
+    const values = atob(payload ? payload : '');
+    const valuesJson = JSON.parse(values);
+    const roles = valuesJson.roles;
+    return roles.some((role: any) => Object.values(role).includes('admin'));
+  }
+
   logOut(): void {
     localStorage.clear();
   }
