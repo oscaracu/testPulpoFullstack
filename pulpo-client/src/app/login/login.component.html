@@ -1,41 +1,30 @@
-<section class="bg-[#F4F7FF] py-20 lg:py-[120px]">
+<section class="bg-slate-400 flex items-center justify-center h-screen">
   <div class="container mx-auto">
     <div class="-mx-4 flex flex-wrap">
       <div class="w-full px-4">
         <div
-          class="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10 text-center sm:px-12 md:px-[60px]"
-        >
+          class="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10 text-center sm:px-12 md:px-[60px]">
           <div class="mb-10 text-center md:mb-16">
-            <a
-              href="javascript:void(0)"
-              class="mx-auto inline-block max-w-[160px]"
-            >
+            <a href="javascript:void(0)" class="mx-auto inline-block max-w-[160px]">
               <img src="assets/pulpo-logo-blue.svg" alt="logo" />
             </a>
           </div>
-          <form>
+          <form (ngSubmit)="onLogin()">
             <div class="mb-6">
-              <input
-                type="text"
-                placeholder="Email"
-                class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-              />
+              <input type="text" placeholder="Usuario" [(ngModel)]="username" name="username"
+                class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none" />
             </div>
             <div class="mb-6">
-              <input
-                type="password"
-                placeholder="Password"
-                class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-              />
+              <input type="password" placeholder="Password" [(ngModel)]="password" name="password"
+                class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none" />
             </div>
             <div class="mb-10">
-              <input
-                type="submit"
-                value="Sign In"
-                class="border-indigo-800 w-full cursor-pointer rounded-md border bg-indigo-800 py-3 px-5 text-base text-white transition hover:bg-opacity-90"
-              />
+              <button type="submit" [disabled]="!username || !password"
+                class="border-indigo-800 w-full rounded-md border bg-indigo-800 py-3 px-5 text-base text-white transition hover:bg-opacity-90 disabled:bg-gray-500 disabled:border-gray-500">Iniciar
+                Sesión</button>
             </div>
           </form>
+          <p class="text-red-600">{{error}}</p>
         </div>
       </div>
     </div>
