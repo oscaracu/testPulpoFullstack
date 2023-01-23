@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from 'src/roles/entities/role.entity';
-import { Raw, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -40,8 +40,8 @@ export class UsersService {
     return await this.usersRepository.save(newUser);
   }
 
-  findAll() {
-    return this.usersRepository.find();
+  async findAll() {
+    return await this.usersRepository.find();
   }
 
   // findOne(id: number) {
@@ -52,7 +52,7 @@ export class UsersService {
   //   return `This action updates a #${id} user`;
   // }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  async remove(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
+  }
 }
