@@ -41,7 +41,9 @@ export class VehicleDetailsComponent implements OnInit {
 
   getVehicle(id: number): void {
     this.vehicleService.getVehicle(id).subscribe((vehicle) => {
-      this.vehicle = vehicle;
+      vehicle === null
+        ? this.router.navigate(['/dashboard'])
+        : (this.vehicle = vehicle);
     });
   }
 
