@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoveltiesCategories } from '../novelties-categories';
+import { TokenService } from '../services/token.service';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
 import { Vehicle } from '../vehicle';
 
@@ -25,12 +26,16 @@ export class VehiclesListComponent implements OnInit {
     color: false,
   };
 
-  constructor(private vehicleService: VehiclesServiceService) {}
+  constructor(
+    private vehicleService: VehiclesServiceService,
+    private tokenService: TokenService
+  ) {}
 
   vehicles!: Vehicle[];
   noveltiesCategories!: NoveltiesCategories[];
   searchParams: URLSearchParams = new URLSearchParams();
   searchTerm: string = '';
+  isAdmin!: boolean | null;
 
   colors!: string[];
   makes!: string[];
@@ -44,6 +49,7 @@ export class VehiclesListComponent implements OnInit {
   ngOnInit(): void {
     this.getVehicles(this.searchParams.toString());
     this.getNoveltiesCategories();
+    this.isAdmin = this.tokenService.isAdmin();
   }
 
   nextPage(): void {

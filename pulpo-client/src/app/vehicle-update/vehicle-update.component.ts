@@ -23,6 +23,9 @@ export class VehicleUpdateComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const vehicleId = Number(routeParams.get('id'));
     this.vehicleService.getVehicle(vehicleId).subscribe((vehicle) => {
+      if (vehicle === null) {
+        this.router.navigate(['/dashboard']);
+      }
       this.vehicle = vehicle;
       this.initialValues = {
         make: vehicle.make.id,
