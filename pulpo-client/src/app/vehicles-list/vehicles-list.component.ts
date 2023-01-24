@@ -86,11 +86,12 @@ export class VehiclesListComponent implements OnInit {
     });
   }
 
-  orderBy(selection: string): void {
+  orderBy(selection: string, sort: string): void {
     if (this.searchParams.has('order'))
       this.searchParams.set('order', selection);
     else this.searchParams.append('order', selection);
-    if (!this.searchParams.has('sort')) this.searchParams.append('sort', 'asc');
+    if (!this.searchParams.has('sort')) this.searchParams.append('sort', sort);
+    this.searchParams.set('sort', sort);
     this.getVehicles(this.searchParams.toString());
     this.toggle('order');
   }
@@ -137,6 +138,7 @@ export class VehiclesListComponent implements OnInit {
   reset(): void {
     this.searchParams = new URLSearchParams();
     this.getVehicles(this.searchParams.toString());
+    console.log(this.searchParams.toString());
   }
 
   toggle(filter: string) {

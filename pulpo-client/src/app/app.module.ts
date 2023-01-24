@@ -20,6 +20,7 @@ import { ToggleBtnComponent } from './toggle-btn/toggle-btn.component';
 import { VehicleUpdateComponent } from './vehicle-update/vehicle-update.component';
 import { VehicleCreationComponent } from './vehicle-creation/vehicle-creation.component';
 import { interceptorProvider } from './interceptors/vehicles.interceptor';
+import { SortButtonComponent } from './sort-button/sort-button.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { interceptorProvider } from './interceptors/vehicles.interceptor';
     ToggleBtnComponent,
     VehicleUpdateComponent,
     VehicleCreationComponent,
+    SortButtonComponent,
   ],
   imports: [
     FormsModule,
