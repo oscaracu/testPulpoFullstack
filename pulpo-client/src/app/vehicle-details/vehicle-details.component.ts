@@ -18,9 +18,10 @@ export class VehicleDetailsComponent implements OnInit {
   noveltiesCategories!: NoveltiesCategories[];
   delete: boolean = false;
   isAdmin!: boolean | null;
+  currentNovelties!: Novelty[];
 
   newNovelty = new FormGroup({
-    noveltiesCategoryId: new FormControl(1, { nonNullable: true }),
+    noveltiesCategoryId: new FormControl(0, { nonNullable: true }),
     description: new FormControl('', Validators.required),
   });
 
@@ -41,9 +42,11 @@ export class VehicleDetailsComponent implements OnInit {
 
   getVehicle(id: number): void {
     this.vehicleService.getVehicle(id).subscribe((vehicle) => {
-      vehicle === null
-        ? this.router.navigate(['/dashboard'])
-        : (this.vehicle = vehicle);
+      if (vehicle === null) {
+        this.router.navigate(['/dashboard']);
+      }
+      this.vehicle = vehicle;
+      this.currentNovelties = [...vehicle.novelties];
     });
   }
 
@@ -55,11 +58,15 @@ export class VehicleDetailsComponent implements OnInit {
 
   onSubmit(): void {
     const novelty: Partial<Novelty> = this.newNovelty.value;
+
     this.vehicleService
       .addNovelty(this.vehicle.id, novelty)
-      .subscribe((vehicle) => (this.vehicle.novelties = vehicle.novelties));
+      .subscribe((vehicle) => {
+        this.vehicle.novelties = vehicle.novelties;
+        this.currentNovelties = vehicle.novelties;
+      });
 
-    this.newNovelty.reset();
+    this.newNovelty.reset({ noveltiesCategoryId: 0 });
   }
 
   updateState(state: string, value: boolean): void {
@@ -74,5 +81,18 @@ export class VehicleDetailsComponent implements OnInit {
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['/dashboard']);
     });
+  }
+
+  filterNovelties(event: Event): void {
+    const noveltyCategory = (event.target as HTMLSelectElement).value;
+
+    if (noveltyCategory === '0') {
+      this.currentNovelties = [...this.vehicle.novelties];
+      this.newNovelty.reset({ noveltiesCategoryId: 0 });
+    } else {
+      this.currentNovelties = this.vehicle.novelties.filter((novelty) => {
+        return novelty.noveltiesCategoryId === +noveltyCategory[0];
+      });
+    }
   }
 }

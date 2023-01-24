@@ -72,7 +72,7 @@
                     <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                         <ul role="listbox" tabindex="-1"
                             class="divide-y divide-gray-200 rounded-md border border-gray-200 max-h-80 overflow-auto z-10">
-                            <li *ngFor="let novelty of vehicle.novelties.reverse()"
+                            <li *ngFor="let novelty of currentNovelties.reverse()"
                                 class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
                                 <div class="flex w-0 flex-1 items-center">
                                     <span class="ml-2 w-0 flex-1 truncate">{{novelty.description}} </span>
@@ -88,8 +88,9 @@
                             <form *ngIf="noveltiesCategories" [formGroup]="newNovelty"
                                 class="flex flex-col gap-3 pt-4 md:flex-row md:items-center" (ngSubmit)="onSubmit()">
                                 <select formControlName="noveltiesCategoryId" id="category" autocomplete="off"
+                                    (change)="filterNovelties($event)"
                                     class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                    <option value="0" disabled>Categoría</option>
+                                    <option value="0">Categoría</option>
                                     <option *ngFor="let category of noveltiesCategories" [ngValue]="category.id">
                                         {{category.name}}</option>
                                 </select>
@@ -97,7 +98,7 @@
                                     placeholder="Breve descripción aquí..."
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
 
-                                <button [disabled]="!newNovelty.valid"
+                                <button [disabled]="!newNovelty.valid || !newNovelty.value.noveltiesCategoryId"
                                     class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition duration-500 hover:bg-indigo-600 disabled:bg-gray-500">Agregar</button>
                             </form>
                         </div>
