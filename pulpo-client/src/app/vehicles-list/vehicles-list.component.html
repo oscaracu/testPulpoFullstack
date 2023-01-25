@@ -165,13 +165,13 @@
                             class="px-5 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                             <div class="flex gap-1 items-center">
 
-                                <span
+                                <span [title]="vehicle.isActive?'Activo':'Inactivo'"
                                     [ngClass]="{'text-green-600': vehicle.isActive, 'text-gray-500': !vehicle.isActive}"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-circle-fill" viewBox="0 0 16 16">
                                         <circle cx="8" cy="8" r="8" />
                                     </svg></span>
-                                <span
+                                <span [title]="vehicle.isAssigned?'Asignado':'No Asignado'"
                                     [ngClass]="{'text-green-600': vehicle.isAssigned, 'text-gray-500': !vehicle.isAssigned}"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-circle-fill" viewBox="0 0 16 16">
