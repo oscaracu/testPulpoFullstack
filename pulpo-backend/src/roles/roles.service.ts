@@ -11,16 +11,16 @@ export class RolesService {
     @InjectRepository(Role) private rolRepository: Repository<Role>,
   ) {}
 
-  create(createRoleDto: CreateRoleDto) {
-    const exists = this.rolRepository.findOne({
+  async create(createRoleDto: CreateRoleDto): Promise<any> {
+    const exists = await this.rolRepository.findOne({
       where: { name: createRoleDto.name },
     });
 
     if (exists)
       throw new BadRequestException(`${createRoleDto.name} ya existe`);
 
-    const newRole = this.rolRepository.create(createRoleDto);
-    return this.rolRepository.save(newRole);
+    const newRole = await this.rolRepository.create(createRoleDto);
+    return await this.rolRepository.save(newRole);
   }
 
   findAll() {
