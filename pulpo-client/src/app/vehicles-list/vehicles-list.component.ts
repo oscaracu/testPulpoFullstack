@@ -4,13 +4,13 @@ import { TokenService } from '../services/token.service';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
 import { Vehicle } from '../vehicle';
 
-interface FiltersDropdownState {
-  order: boolean;
-  sort: boolean;
-  show: boolean;
-  novelties: boolean;
-  [key: string]: boolean;
-}
+// interface FiltersDropdownState {
+//   order: boolean;
+//   sort: boolean;
+//   show: boolean;
+//   novelties: boolean;
+//   [key: string]: boolean;
+// }
 
 @Component({
   selector: 'app-vehicles-list',
@@ -18,18 +18,29 @@ interface FiltersDropdownState {
   styleUrls: ['./vehicles-list.component.css'],
 })
 export class VehiclesListComponent implements OnInit {
-  filtersDropdownState: FiltersDropdownState = {
-    order: false,
-    sort: false,
-    show: false,
-    novelties: false,
-    color: false,
-  };
+  // filtersDropdownState: FiltersDropdownState = {
+  //   order: false,
+  //   sort: false,
+  //   show: false,
+  //   novelties: false,
+  //   color: false,
+  // };
 
   constructor(
     private vehicleService: VehiclesServiceService,
     private tokenService: TokenService
   ) {}
+
+  setColor(colorName: any) {
+    const Color: { [x: string]: any } = {
+      Azul: 'text-blue-900',
+      Blanco: 'text-white',
+      Gris: 'text-gray-500',
+      Negro: 'text-black',
+      Plata: 'text-slate-300',
+    };
+    return Color[colorName];
+  }
 
   vehicles!: Vehicle[];
   noveltiesCategories!: NoveltiesCategories[];
@@ -45,6 +56,8 @@ export class VehiclesListComponent implements OnInit {
   totalPages: number = 0;
   currentPage: number = 0;
   pageItems: number = 5;
+
+  showFilters: boolean = false;
 
   ngOnInit(): void {
     this.getVehicles(this.searchParams.toString());
@@ -93,14 +106,14 @@ export class VehiclesListComponent implements OnInit {
     if (!this.searchParams.has('sort')) this.searchParams.append('sort', sort);
     this.searchParams.set('sort', sort);
     this.getVehicles(this.searchParams.toString());
-    this.toggle('order');
+    // this.toggle('order');
   }
 
   sort(selection: string): void {
     if (this.searchParams.has('sort')) this.searchParams.set('sort', selection);
     else this.searchParams.append('sort', selection);
     this.getVehicles(this.searchParams.toString());
-    this.toggle('sort');
+    // this.toggle('sort');
   }
 
   tabFilter(selection: string, value: string): void {
@@ -141,9 +154,11 @@ export class VehiclesListComponent implements OnInit {
     console.log(this.searchParams.toString());
   }
 
-  toggle(filter: string) {
-    this.filtersDropdownState[filter] = !this.filtersDropdownState[filter];
-  }
+  // toggle() {
+  //   console.log(this.showFilters);
+  //   this.showFilters = !this.showFilters;
+  //   console.log(this.showFilters);
+  // }
 
   generateFiltersLists(vehicles: Vehicle[]): void {
     const colorsSet: Set<string> = new Set();

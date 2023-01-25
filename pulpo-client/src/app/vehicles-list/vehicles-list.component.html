@@ -29,7 +29,25 @@
 
     <!-- Botones de filtrado por atributo -->
 
-    <div>
+    <div class="mb-2 md:hidden">
+
+        <div class="relative mt-1">
+            <button (click)="showFilters = !showFilters"
+                class="flex items-center justify-center relative w-full text-indigo-500 rounded-md border border-indigo-400 bg-white p-3 text-center shadow-sm hover:border-indigo-500 hover:outline-none hover:ring-1 hover:ring-indigo-500 hover:font-medium sm:text-sm">
+                <p>
+                    Mostrar filtros
+                </p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-funnel" viewBox="0 0 16 16">
+                        <path
+                            d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg></span>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="md:block" [ngClass]="{'hidden': !showFilters}">
         <div class="flex flex-col gap-1 md:flex md:flex-row md:gap-3 md:justify-center md:items-center">
             <app-filter-select [options]="colors" [listName]="'Color'"
                 (selected)="filter('color', $event)"></app-filter-select>
@@ -86,18 +104,6 @@
                 </ul>
             </div>
 
-            <div class="flex justify-center">
-                <div *ngIf="!currentVehicles" class="mx-auto mb-4 py-8">
-                    <app-spinner></app-spinner>
-                </div>
-
-                <div class="text-center mb-4 text-xl py-8" *ngIf="currentVehicles && currentVehicles.length===0">No se
-                    encontraron
-                    vehículos o
-                    coincidencias
-                    para mostrar.
-                </div>
-            </div>
 
 
             <table class="min-w-full" *ngIf="currentVehicles && currentVehicles.length>0">
@@ -132,7 +138,12 @@
                         <td class="px-5 py-4 border-b border-gray-500">
                             <div class="flex items-center">
                                 <div>
-                                    <div class="text-sm leading-5 text-gray-800">{{vehicle.make.name}}</div>
+                                    <div class="text-sm leading-5 text-gray-800"><a class="hover:text-blue-500"
+                                            [routerLink]="['./vehicle-details', vehicle.id]">
+
+                                            {{vehicle.make.name}}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -143,8 +154,8 @@
                             class="px-5 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                             <div class="flex gap-1 items-center">
 
-                                <span class="text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                        height="16" fill="currentColor" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                <span [ngClass]="setColor(vehicle.color.name)"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" fill="currentColor" class="shadow" viewBox="0 0 16 16">
                                         <path
                                             d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
                                     </svg></span>{{vehicle.color.name}}
@@ -180,31 +191,19 @@
 
     </div>
 
-    <!-- Listado de Vehiculos -->
-    <!-- <div class="flex flex-col gap-3">
-        <div *ngIf="!currentVehicles" class="mx-auto mb-4">
+    <div class="flex justify-center">
+        <div *ngIf="!currentVehicles" class="mx-auto mb-4 py-8">
             <app-spinner></app-spinner>
         </div>
 
-        <div class="text-center mb-4 text-xl" *ngIf="currentVehicles && currentVehicles.length===0">No se encontraron
+        <div class="text-center mb-4 text-xl py-8" *ngIf="currentVehicles && currentVehicles.length===0">No se
+            encontraron
             vehículos o
             coincidencias
             para mostrar.
         </div>
-        <div *ngFor="let vehicle of currentVehicles"
-            class="border p-4 flex flex-col gap-1 justify-center items-center md:flex-row md:justify-around text-xl md:text-base">
-            <div class="text-2xl font-semibold md:text-lg md:basis-2/6">{{vehicle.make.name}} {{vehicle.model}}</div>
-            <div class="md:basis-1/6">Color: {{vehicle.color.name}}</div>
-            <div class="md:basis-1/6">Estado: <span *ngIf="vehicle.isActive">Activo</span><span
-                    *ngIf="!vehicle.isActive">Inactivo</span>
-            </div>
-            <div class="md:basis-1/6">Asignado: {{vehicle.isAssigned?'Si':'No'}}</div>
-            <div class="md:basis-1/6 md:text-right p-3"><a [routerLink]="['./vehicle-details', vehicle.id]"
-                    class="py-3 px-5 bg-indigo-700 text-white font-medium rounded-md transition hover:bg-indigo-600">Detalles</a>
-            </div>
-        </div>
+    </div>
 
-    </div> -->
 
     <!-- Botones de navegación -->
     <div *ngIf="currentVehicles && currentVehicles.length > 0">
