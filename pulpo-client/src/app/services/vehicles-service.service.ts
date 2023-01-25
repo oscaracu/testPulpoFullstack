@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Color } from '../color';
-import { Maker } from '../maker';
-import { NoveltiesCategories } from '../novelties-categories';
-import { Novelty } from '../novelty';
-import { Vehicle } from '../vehicle';
+import { Color } from '../models/color';
+import { Maker } from '../models/maker';
+import { NoveltiesCategories } from '../models/novelties-categories';
+import { Novelty } from '../models/novelty';
+import { Vehicle } from '../models/vehicle';
 import { VehicleForm } from '../vehicle-form/vehicleForm';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Vehicle } from '../models/vehicle';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
-import { Vehicle } from '../vehicle';
 import { VehicleForm } from '../vehicle-form/vehicleForm';
 
 @Component({

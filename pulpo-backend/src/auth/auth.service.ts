@@ -5,7 +5,7 @@ import { compare } from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { TokenDto } from './dto/token.dto';
 import { Payload } from './payload/payload.interface';
 
 @Injectable()
@@ -34,19 +34,15 @@ export class AuthService {
     return { token };
   }
 
-  // findAll() {
-  //   return `This action returns all auth`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} auth`;
-  // }
-
-  // update(id: number, updateAuthDto: UpdateAuthDto) {
-  //   return `This action updates a #${id} auth`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} auth`;
-  // }
+  async refresh(tokenDto: TokenDto): Promise<any> {
+    const usuario = await this.jwtService.decode(tokenDto.token);
+    const payload: Payload = {
+      id: usuario[`id`],
+      username: usuario[`username`],
+      email: usuario[`email`],
+      roles: usuario[`roles`],
+    };
+    const token = await this.jwtService.sign(payload);
+    return { token };
+  }
 }

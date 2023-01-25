@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginDto } from '../login.dto';
+import { LoginDto } from '../models/login.dto';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 

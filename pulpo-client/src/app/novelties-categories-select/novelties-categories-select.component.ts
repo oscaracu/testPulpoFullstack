@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NoveltiesCategories } from '../novelties-categories';
+import { NoveltiesCategories } from '../models/novelties-categories';
 
 @Component({
   selector: 'app-novelties-categories-select',

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NoveltiesCategories } from '../novelties-categories';
-import { Novelty } from '../novelty';
+import { NoveltiesCategories } from '../models/novelties-categories';
+import { Novelty } from '../models/novelty';
+import { Vehicle } from '../models/vehicle';
 import { TokenService } from '../services/token.service';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
-import { Vehicle } from '../vehicle';
 import { VehicleForm } from '../vehicle-form/vehicleForm';
 
 @Component({

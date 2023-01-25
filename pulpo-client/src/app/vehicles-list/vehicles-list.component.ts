@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NoveltiesCategories } from '../novelties-categories';
+import { NoveltiesCategories } from '../models/novelties-categories';
+import { Vehicle } from '../models/vehicle';
 import { TokenService } from '../services/token.service';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
-import { Vehicle } from '../vehicle';
 
 // interface FiltersDropdownState {
 //   order: boolean;

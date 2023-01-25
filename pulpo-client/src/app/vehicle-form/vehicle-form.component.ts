@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Color } from '../color';
-import { Maker } from '../maker';
+import { Color } from '../models/color';
+import { Maker } from '../models/maker';
+import { Vehicle } from '../models/vehicle';
 import { VehiclesServiceService } from '../services/vehicles-service.service';
-import { Vehicle } from '../vehicle';
 
 @Component({
   selector: 'app-vehicle-form',
