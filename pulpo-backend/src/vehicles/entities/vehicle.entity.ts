@@ -1,3 +1,4 @@
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Color } from 'src/colors/entities/color.entity';
 import { Maker } from 'src/makers/entities/maker.entity';
 import { Novelty } from 'src/novelties/entities/novelty.entity';
@@ -15,15 +16,23 @@ export class Vehicle {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @IsNotEmpty()
+  @IsNumber()
   @ManyToOne(() => Maker, (maker) => maker.vehicle)
   make: Maker;
 
+  @IsNotEmpty()
+  @IsNumber()
   @Column()
   model: number;
 
+  @IsNotEmpty()
+  @IsNumber()
   @ManyToOne(() => Color, (color) => color.vehicle)
   color: Color;
 
+  @IsNotEmpty()
+  @IsString()
   @Column({ type: 'date' })
   admissionDate: string;
 
