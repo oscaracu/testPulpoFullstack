@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Color } from '../models/color';
 import { Maker } from '../models/maker';
 import { NoveltiesCategories } from '../models/novelties-categories';
@@ -12,7 +13,7 @@ import { VehicleForm } from '../vehicle-form/vehicleForm';
   providedIn: 'root',
 })
 export class VehiclesServiceService {
-  apiUrl = 'http://localhost:3000';
+  apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
