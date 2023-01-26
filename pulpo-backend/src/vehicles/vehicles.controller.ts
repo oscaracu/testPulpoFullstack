@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
@@ -18,6 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolNames } from 'src/roles/roles.enum';
+import { Response } from 'express';
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -67,7 +69,8 @@ export class VehiclesController {
   @Roles(RolNames.ADMIN)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vehiclesService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    await this.vehiclesService.remove(+id);
+    return res.status(200).json({ message: 'Item deleted successfully' });
   }
 }
