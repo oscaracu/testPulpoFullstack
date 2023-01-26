@@ -46,7 +46,7 @@ export class VehicleDetailsComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       }
       this.vehicle = vehicle;
-      this.currentNovelties = [...vehicle.novelties];
+      this.currentNovelties = [...vehicle.novelties].reverse();
     });
   }
 
