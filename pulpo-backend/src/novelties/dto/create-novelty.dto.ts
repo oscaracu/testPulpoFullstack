@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateNoveltyDto {
   @IsNotEmpty()
   @IsNumber()
   noveltiesCategoryId: number;
   @IsNotEmpty()
-  @IsNumber()
+  @IsString()
   description: string;
 }
